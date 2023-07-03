@@ -19,6 +19,22 @@ M.trouble = {
   },
 }
 
+M.rust = {
+    n = {
+        ["<leader>rc"] = {"<cmd>Cargo run<cr>", "Run Cargo"},
+        ["<leader>tb"] = {"<cmd>Cargo build<cr>", "Build Cargo"},
+        ["<leader>tt"] = {"<cmd>Cargo test<cr>", "Test Cargo"},
+    },
+}
+
+M.ale = {
+    n = {
+        ["<leader>an"] = {"<cmd>ALENext<cr>", "Next ALE Warning/Error"},
+        ["<leader>ap"] = {"<cmd>ALEPrevious<cr>", "Previous ALE Warning/Error"},
+        ["<leader>af"] = {"<cmd>ALEFix<cr>", "Fix ALE Issues"},
+    },
+}
+
 M.window_picker = {
   n = {
     -- An awesome method to jump to windows

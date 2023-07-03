@@ -239,66 +239,6 @@ local plugins = {
     end,
   },
   {
-    "zbirenbaum/copilot.lua",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup {
-        panel = {
-          enabled = true,
-          auto_refresh = false,
-          keymap = {
-            jump_prev = "[[",
-            jump_next = "]]",
-            accept = "<CR>",
-            refresh = "gr",
-            open = "<M-CR>",
-          },
-          layout = {
-            position = "bottom",
-            ratio = 0.4,
-          },
-        },
-        suggestion = {
-          enabled = true,
-          auto_trigger = false,
-          debounce = 75,
-          keymap = {
-            accept = "<M-l>",
-            accept_word = false,
-            accept_line = false,
-            next = "<M-]>",
-            prev = "<M-[>",
-            dismiss = "<C-]>",
-          },
-        },
-        filetypes = {
-          yaml = true,
-          markdown = false,
-          help = false,
-          gitcommit = false,
-          gitrebase = false,
-          hgcommit = false,
-          svn = false,
-          cvs = false,
-        },
-        copilot_node_command = "node",
-        server_opts_overrides = {},
-      }
-    end,
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    event = "InsertEnter",
-    dependencies = { "zbirenbaum/copilot.lua" },
-    config = function()
-      vim.defer_fn(function()
-        require("copilot").setup ({ suggestion = { enabled = true }, panel = { enabled = true } }) -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
-        require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/EADME.md#configuration
-      end, 100)
-    end,
-  },
-
-  {
     "folke/todo-comments.nvim",
     event = "BufRead",
     config = function()
@@ -348,6 +288,46 @@ local plugins = {
   {
     "mg979/vim-visual-multi",
     lazy = false,
+  },
+  {
+    "rust-lang/rust.vim",
+  },
+  {
+    "racer-rust/vim-racer",
+  },
+  {
+    "timonv/vim-cargo",
+  },
+  {
+    "dense-analysis/ale",
+  }, 
+
+  {
+    "zbirenbaum/copilot.lua",
+    event = "InsertEnter",
+    opts = overrides.copilot,
+  },
+
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      {
+        "zbirenbaum/copilot-cmp",
+        config = function()
+          require("copilot_cmp").setup()
+        end,
+      },
+    },
+    opts = {
+      sources = {
+        { name = "nvim_lsp", group_index = 2 },
+        { name = "copilot",  group_index = 2 },
+        { name = "luasnip",  group_index = 2 },
+        { name = "buffer",   group_index = 2 },
+        { name = "nvim_lua", group_index = 2 },
+        { name = "path",     group_index = 2 },
+      },
+    },
   },
   -- To make a plugin not be loaded
   -- {
