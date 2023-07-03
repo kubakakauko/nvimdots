@@ -1,5 +1,39 @@
 local M = {}
 
+M.nvim_cmp = {
+   sources = {
+        { name = "nvim_lsp", group_index = 2 },
+        { name = "copilot",  group_index = 2 },
+        { name = "luasnip",  group_index = 2 },
+        { name = "buffer",   group_index = 2 },
+        { name = "nvim_lua", group_index = 2 },
+        { name = "path",     group_index = 2 },
+      },
+
+}
+
+M.numb = {
+  show_numbers = true,
+  show_cursorline = true,
+}
+
+M.window_picker = {
+  autoselect_one = true,
+  include_current = false,
+  selection_chars = "ARSTDHNEIO",
+
+  filter_rules = {
+    -- filter using buffer options
+    bo = {
+      -- if the file type is one of following, the window will be ignored
+      filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
+
+      -- if the buffer type is one of following, the window will be ignored
+      buftype = { "terminal" },
+    },
+  },
+  other_win_hl_color = "#e35e4f",
+}
 
 M.copilot = {
   -- Possible configurable fields can be found on:

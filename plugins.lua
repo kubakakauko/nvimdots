@@ -21,16 +21,10 @@ local plugins = {
   },
 
   -- override plugin configs
-
   {
     "nacro90/numb.nvim",
     event = "BufRead",
-    config = function()
-      require("numb").setup {
-        show_numbers = true, -- Enable 'number' for the window while peeking
-        show_cursorline = true, -- Enable 'cursorline' for the window while peeking
-      }
-    end,
+    opts = overrides.numb,
   },
 
   {
@@ -50,34 +44,7 @@ local plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-
-        "vim",
-        "lua",
-        -- web dev
-        "html",
-        "css",
-        "javascript",
-        "typescript",
-        "tsx",
-        "json",
-        -- "vue", "svelte",
-
-        -- low level
-        "c",
-        "zig",
-        -- other
-        "python",
-        "dockerfile",
-        "cmake",
-        "cuda",
-        "dot",
-        "yaml",
-        "sql",
-        "solidity",
-      },
-    },
+    opts = overrides.treesitter,
   },
 
   {
@@ -91,16 +58,6 @@ local plugins = {
     event = "InsertEnter",
     config = function()
       require("better_escape").setup()
-    end,
-  },
-  {
-    "nacro90/numb.nvim",
-    event = "BufRead",
-    config = function()
-      require("numb").setup {
-        show_numbers = true, -- Enable 'number' for the window while peeking
-        show_cursorline = true, -- Enable 'cursorline' for the window while peeking
-      }
     end,
   },
 
@@ -141,25 +98,7 @@ local plugins = {
   {
     "s1n7ax/nvim-window-picker",
     version = "2.*",
-    config = function()
-      require("window-picker").setup {
-        autoselect_one = true,
-        include_current = false,
-        selection_chars = "ARSTDHNEIO",
-
-        filter_rules = {
-          -- filter using buffer options
-          bo = {
-            -- if the file type is one of following, the window will be ignored
-            filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
-
-            -- if the buffer type is one of following, the window will be ignored
-            buftype = { "terminal" },
-          },
-        },
-        other_win_hl_color = "#e35e4f",
-      }
-    end,
+    opts = overrides.window_picker,
   },
 
   {
@@ -300,7 +239,7 @@ local plugins = {
   },
   {
     "dense-analysis/ale",
-  }, 
+  },
 
   {
     "zbirenbaum/copilot.lua",
@@ -318,16 +257,7 @@ local plugins = {
         end,
       },
     },
-    opts = {
-      sources = {
-        { name = "nvim_lsp", group_index = 2 },
-        { name = "copilot",  group_index = 2 },
-        { name = "luasnip",  group_index = 2 },
-        { name = "buffer",   group_index = 2 },
-        { name = "nvim_lua", group_index = 2 },
-        { name = "path",     group_index = 2 },
-      },
-    },
+    opts = overrides.nvim_cmp,
   },
   -- To make a plugin not be loaded
   -- {
