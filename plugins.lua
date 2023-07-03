@@ -239,7 +239,11 @@ local plugins = {
   },
   {
     "dense-analysis/ale",
+<<<<<<< HEAD
   },
+=======
+  }, 
+>>>>>>> 25ae167122c0706b5dc4d290cb3257f3b4182883
 
   {
     "zbirenbaum/copilot.lua",
@@ -257,7 +261,20 @@ local plugins = {
         end,
       },
     },
+<<<<<<< HEAD
     opts = overrides.nvim_cmp,
+=======
+    opts = {
+      sources = {
+        { name = "nvim_lsp", group_index = 2 },
+        { name = "copilot",  group_index = 2 },
+        { name = "luasnip",  group_index = 2 },
+        { name = "buffer",   group_index = 2 },
+        { name = "nvim_lua", group_index = 2 },
+        { name = "path",     group_index = 2 },
+      },
+    },
+>>>>>>> 25ae167122c0706b5dc4d290cb3257f3b4182883
   },
   -- To make a plugin not be loaded
   -- {
