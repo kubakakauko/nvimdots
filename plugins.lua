@@ -2,7 +2,6 @@ local overrides = require "custom.configs.overrides"
 ---@type NvPluginSpec[]
 local plugins = {
   -- Override plugin definition options
-
   {
     "neovim/nvim-lspconfig",
     dependencies = {
@@ -134,7 +133,7 @@ local plugins = {
 
   {
     "rmagatti/goto-preview",
-    opts= overrides.goto_preview,
+    opts = overrides.goto_preview,
     -- config = function()
     --   require("goto-preview").setup {
     --   }
@@ -222,9 +221,6 @@ local plugins = {
     lazy = false,
   },
   {
-    "rust-lang/rust.vim",
-  },
-  {
     "racer-rust/vim-racer",
   },
   {
@@ -250,6 +246,52 @@ local plugins = {
       },
     },
     opts = overrides.nvim_cmp,
+  },
+
+
+  {
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+    dependencies = "neovim/nvim-lspconfig",
+    opts = function()
+      return require "custom.configs.rust-tools"
+    end,
+    config = function(_, opts)
+      require("rust-tools").setup(opts)
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap",
+    init = function()
+      require("core.utils").load_mappings "dap"
+    end,
+  },
+  {
+    "saecki/crates.nvim",
+    ft = { "toml" },
+    config = function(_, opts)
+      local crates = require "crates"
+      crates.setup(opts)
+      require("cmp").setup.buffer {
+        sources = { { name = "crates" } },
+      }
+      crates.show()
+      require("core.utils").load_mappings "crates"
+    end,
+  },
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function()
+      vim.g.rustfmt_autosave = 1
+    end,
+  },
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    lazy = false,
+    config = function()
+      require("nvim-dap-virtual-text").setup()
+    end,
   },
   -- To make a plugin not be loaded
   -- {
