@@ -25,9 +25,9 @@ M.nvim_cmp = {
   sources = {
     { name = "nvim_lsp", group_index = 2 },
     { name = "crates", group_index = 2 },
-    { name = "copilot", group_index = 2 },
     { name = "luasnip", group_index = 2 },
     { name = "buffer", group_index = 2 },
+    { name = "copilot", group_index = 2 },
     { name = "nvim_lua", group_index = 2 },
     { name = "path", group_index = 2 },
   },
@@ -42,25 +42,89 @@ M.window_picker = {
   autoselect_one = true,
   include_current = false,
   selection_chars = "ARSTDHNEIO",
+  other_win_hl_color = "#79C0FF",
+  show_prompt = true,
+
+  -- type of hints you want to get
+  -- following types are supported
+  -- 'statusline-winbar' | 'floating-big-letter'
+  -- 'statusline-winbar' draw on 'statusline' if possible, if not 'winbar' will be
+  -- 'floating-big-letter' draw big letter on a floating window
+  -- used
+  hint = "floating-big-letter",
 
   filter_rules = {
     -- filter using buffer options
     bo = {
       -- if the file type is one of following, the window will be ignored
-      filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
-
+      -- filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
+      filetype = { 'NvimTree', 'neo-tree', "notify", "quickfix" },
       -- if the buffer type is one of following, the window will be ignored
       buftype = { "terminal" },
     },
   },
-  other_win_hl_color = "#FF6B5A",
+
+  -- This section contains picker specific configurations
+  picker_config = {
+    statusline_winbar_picker = {
+      -- You can change the display string in status bar.
+      -- It supports '%' printf style. Such as `return char .. ': %f'` to display
+      -- buffer file path. See :h 'stl' for details.
+      selection_display = function(char, windowid)
+        return "%=" .. char .. "%="
+      end,
+
+      -- whether you want to use winbar instead of the statusline
+      -- "always" means to always use winbar,
+      -- "never" means to never use winbar
+      -- "smart" means to use winbar if cmdheight=0 and statusline if cmdheight > 0
+      use_winbar = "smart", -- "always" | "never" | "smart"
+    },
+
+    floating_big_letter = {
+      -- window picker plugin provides bunch of big letter fonts
+      -- fonts will be lazy loaded as they are being requested
+      -- additionally, user can pass in a table of fonts in to font
+      -- property to use instead
+
+      font = "ansi-shadow", -- ansi-shadow |
+    },
+  },
+-- You can pass in the highlight name or a table of content to set as
+    -- highlight
+    highlights = {
+        statusline = {
+            focused = {
+                fg = '#ededed',
+                bg = '#e35e4f',
+                bold = true,
+            },
+            unfocused = {
+                fg = '#ededed',
+                bg = '#44cc41',
+                bold = true,
+            },
+        },
+        winbar = {
+            focused = {
+                fg = '#ededed',
+                bg = '#e35e4f',
+                bold = true,
+            },
+            unfocused = {
+                fg = '#ededed',
+                bg = '#44cc41',
+                bold = true,
+            },
+        },
+    },
 }
 
 M.copilot = {
   -- Possible configurable fields can be found on:
   -- https://github.com/zbirenbaum/copilot.lua#setup-and-configuration
   suggestion = {
-    enable = false,
+    enable = true,
   },
   panel = {
     enable = false,
@@ -79,6 +143,7 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
+    "rust",
   },
 
   context_commentstring = {
