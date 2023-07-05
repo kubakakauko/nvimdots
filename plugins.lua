@@ -157,18 +157,19 @@ local plugins = {
 
   {
     "simrat39/symbols-outline.nvim",
+    lazy = false,
+    opts = overrides.symbols_outline,
     config = function()
       require("symbols-outline").setup()
     end,
   },
-
-  {
-    "Pocco81/auto-save.nvim",
-    event = "BufRead",
-    config = function()
-      require("auto-save").setup()
-    end,
-  },
+  -- {
+  --   "Pocco81/auto-save.nvim",
+  --   event = "BufRead",
+  --   config = function()
+  --     require("auto-save").setup()
+  --   end,
+  -- },
   {
     "folke/todo-comments.nvim",
     event = "BufRead",
@@ -222,12 +223,20 @@ local plugins = {
   },
   {
     "racer-rust/vim-racer",
+    ft = "rust",
   },
   {
     "timonv/vim-cargo",
+    ft = "rust",
   },
   {
     "dense-analysis/ale",
+    ft = { "rust", "python", "javascript", "typescript", "sh", "c", "cpp", "lua" },
+    config = function()
+      local ale = require("custom.configs.overrides").ale
+      vim.g.ale_fixers = ale.fixers
+      -- vim.g.ale_fix_on_save = ale.fix_on_save
+    end,
   },
   {
     "zbirenbaum/copilot.lua",
@@ -253,7 +262,7 @@ local plugins = {
     ft = "rust",
     dependencies = "neovim/nvim-lspconfig",
     opts = function()
-      require "custom.configs.rust-tools"
+      return require "custom.configs.rust-tools"
     end,
     config = function(_, opts)
       require("rust-tools").setup(opts)
@@ -294,6 +303,96 @@ local plugins = {
       require("nvim-dap-virtual-text").setup()
     end,
   },
+  {
+    "kwkarlwang/bufresize.nvim",
+    config = function()
+      local opts = { noremap = true, silent = true }
+      require("bufresize").setup {
+        register = {
+          keys = {
+            { "n", "<leader>w<", "30<C-w><", opts },
+            { "n", "<leader>w>", "30<C-w>>", opts },
+            { "n", "<leader>w+", "10<C-w>+", opts },
+            { "n", "<leader>w-", "10<C-w>-", opts },
+            { "n", "<leader>w_", "<C-w>_", opts },
+            { "n", "<leader>w=", "<C-w>=", opts },
+            { "n", "<leader>w|", "<C-w>|", opts },
+            { "n", "<leader>wo", "<C-w>|<C-w>_", opts },
+          },
+          trigger_events = { "BufWinEnter", "WinEnter" },
+        },
+        resize = {
+          keys = {},
+          trigger_events = { "VimResized" },
+          increment = 5,
+        },
+      }
+    end,
+  },
+
+  { "mbbill/undotree", cmd = "UndotreeToggle" },
+  { "j-hui/fidget.nvim", lazy = false, tag = "legacy", opts = require "custom.configs.fidget" },
+  { "tpope/vim-rhubarb", lazy = false },
+  { "machakann/vim-highlightedyank", lazy = false },
+  {
+    "hrsh7th/cmp-calc",
+    requires = { "hrsh7th/nvim-cmp" },
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    lazy = false,
+    requires = { "mfussenegger/nvim-dap" },
+  },
+
+  { "ravenxrz/DAPInstall.nvim" },
+  {
+
+    "ahmedkhalf/project.nvim",
+    lazy = false,
+    config = function()
+      require("project_nvim").setup {
+        -- Manual mode doesn't automatically change your root directory, so you have
+        -- the option to manually do so using `:ProjectRoot` command.
+        manual_mode = false,
+
+        -- Methods of detecting the root directory. **"lsp"** uses the native neovim
+        -- lsp, while **"pattern"** uses vim-rooter like glob pattern matching. Here
+        -- order matters: if one is not detected, the other is used as fallback. You
+        -- can also delete or rearangne the detection methods.
+        detection_methods = { "lsp", "pattern" },
+
+        -- All the patterns used to detect root dir, when **"pattern"** is in
+        -- detection_methods
+        patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+
+        -- Table of lsp clients to ignore by name
+        -- eg: { "efm", ... }
+        ignore_lsp = {},
+
+        -- Don't calculate root dir on specific directories
+        -- Ex: { "~/.cargo/*", ... }
+        exclude_dirs = {},
+
+        -- Show hidden files in telescope
+        show_hidden = false,
+
+        -- When set to false, you will get a message when project.nvim changes your
+        -- directory.
+        silent_chdir = true,
+
+        -- What scope to change the directory, valid options are
+        -- * global (default)
+        -- * tab
+        -- * win
+        scope_chdir = "global",
+
+        -- Path where project.nvim will store the project history for use in
+        -- telescope
+        datapath = vim.fn.stdpath "data",
+      }
+    end,
+  },
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

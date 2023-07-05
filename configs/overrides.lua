@@ -1,5 +1,89 @@
 local M = {}
 
+M.nvim_notify = {
+  -- Configuration options go here
+  -- For example, to set the animation style:
+  stages = "fade_in_slide_out",
+  -- And to set the render style:
+  render_style = "minimal",
+  timeout = 5000,
+}
+
+M.ale = {
+  fixers = {
+    python = { "autopep8", "isort" },
+    c = { "clang-format" },
+    cpp = { "clang-format" },
+    rust = { "rustfmt" },
+    lua = { "lua-format" },
+  },
+  fix_on_save = 1,
+}
+
+M.symbol_outline = {
+  highlight_hovered_item = true,
+  show_guides = true,
+  auto_preview = false,
+  position = "right",
+  relative_width = true,
+  width = 25,
+  auto_close = false,
+  show_numbers = false,
+  show_relative_numbers = false,
+  show_symbol_details = true,
+  preview_bg_highlight = "Pmenu",
+  autofold_depth = nil,
+  auto_unfold_hover = true,
+  fold_markers = { "", "" },
+  wrap = false,
+  keymaps = { -- These keymaps can be a string or a table for multiple keys
+    close = { "<Esc>", "q" },
+    goto_location = "<Cr>",
+    focus_location = "o",
+    hover_symbol = "<C-space>",
+    toggle_preview = "K",
+    rename_symbol = "r",
+    code_actions = "a",
+    fold = "h",
+    unfold = "l",
+    fold_all = "W",
+    unfold_all = "E",
+    fold_reset = "R",
+  },
+  lsp_blacklist = {},
+  symbol_blacklist = {},
+  symbols = {
+    File = { icon = "", hl = "@text.uri" },
+    Module = { icon = "", hl = "@namespace" },
+    Namespace = { icon = "", hl = "@namespace" },
+    Package = { icon = "", hl = "@namespace" },
+    Class = { icon = "𝓒", hl = "@type" },
+    Method = { icon = "ƒ", hl = "@method" },
+    Property = { icon = "", hl = "@method" },
+    Field = { icon = "", hl = "@field" },
+    Constructor = { icon = "", hl = "@constructor" },
+    Enum = { icon = "ℰ", hl = "@type" },
+    Interface = { icon = "ﰮ", hl = "@type" },
+    Function = { icon = "", hl = "@function" },
+    Variable = { icon = "", hl = "@constant" },
+    Constant = { icon = "", hl = "@constant" },
+    String = { icon = "𝓐", hl = "@string" },
+    Number = { icon = "#", hl = "@number" },
+    Boolean = { icon = "⊨", hl = "@boolean" },
+    Array = { icon = "", hl = "@constant" },
+    Object = { icon = "⦿", hl = "@type" },
+    Key = { icon = "🔐", hl = "@type" },
+    Null = { icon = "NULL", hl = "@type" },
+    EnumMember = { icon = "", hl = "@field" },
+    Struct = { icon = "𝓢", hl = "@type" },
+    Event = { icon = "🗲", hl = "@type" },
+    Operator = { icon = "+", hl = "@operator" },
+    TypeParameter = { icon = "𝙏", hl = "@parameter" },
+    Component = { icon = "", hl = "@function" },
+    Fragment = { icon = "", hl = "@constant" },
+  },
+}
+
 M.goto_preview = {
   width = 120, -- Width of the floating window
   height = 50, -- Height of the floating window
@@ -58,7 +142,7 @@ M.window_picker = {
     bo = {
       -- if the file type is one of following, the window will be ignored
       -- filetype = { "neo-tree", "neo-tree-popup", "notify", "quickfix" },
-      filetype = { 'NvimTree', 'neo-tree', "notify", "quickfix" },
+      filetype = { "NvimTree", "neo-tree", "notify", "quickfix" },
       -- if the buffer type is one of following, the window will be ignored
       buftype = { "terminal" },
     },
@@ -90,34 +174,34 @@ M.window_picker = {
       font = "ansi-shadow", -- ansi-shadow |
     },
   },
--- You can pass in the highlight name or a table of content to set as
-    -- highlight
-    highlights = {
-        statusline = {
-            focused = {
-                fg = '#ededed',
-                bg = '#e35e4f',
-                bold = true,
-            },
-            unfocused = {
-                fg = '#ededed',
-                bg = '#44cc41',
-                bold = true,
-            },
-        },
-        winbar = {
-            focused = {
-                fg = '#ededed',
-                bg = '#e35e4f',
-                bold = true,
-            },
-            unfocused = {
-                fg = '#ededed',
-                bg = '#44cc41',
-                bold = true,
-            },
-        },
+  -- You can pass in the highlight name or a table of content to set as
+  -- highlight
+  highlights = {
+    statusline = {
+      focused = {
+        fg = "#ededed",
+        bg = "#e35e4f",
+        bold = true,
+      },
+      unfocused = {
+        fg = "#ededed",
+        bg = "#44cc41",
+        bold = true,
+      },
     },
+    winbar = {
+      focused = {
+        fg = "#ededed",
+        bg = "#e35e4f",
+        bold = true,
+      },
+      unfocused = {
+        fg = "#ededed",
+        bg = "#44cc41",
+        bold = true,
+      },
+    },
+  },
 }
 
 M.copilot = {
@@ -227,6 +311,14 @@ M.mason = {
 M.nvimtree = {
   git = {
     enable = true,
+  },
+
+  sync_root_with_cwd = true,
+
+  respect_buf_cwd = true,
+  update_focused_file = {
+    enable = true,
+    update_root = true,
   },
 
   renderer = {

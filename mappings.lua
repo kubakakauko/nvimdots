@@ -103,4 +103,19 @@ M.crates = {
     }
   }
 }
+
+-- Your custom mappings
+M.bufresize = {
+  n = {
+    ["<leader>w<"] = {":lua require('bufresize').resize('w', -30)<CR>", "Resize window width -30"},
+    ["<leader>w>"] = {":lua require('bufresize').resize('w', 30)<CR>", "Resize window width +30"},
+    ["<leader>w+"] = {":lua require('bufresize').resize('h', 10)<CR>", "Resize window height +10"},
+    ["<leader>w-"] = {":lua require('bufresize').resize('h', -10)<CR>", "Resize window height -10"},
+    ["<leader>w_"] = {":lua require('bufresize').max_height()<CR>", "Maximize window height"},
+    ["<leader>w="] = {":lua require('bufresize').equalize()<CR>", "Equalize window sizes"},
+    ["<leader>w|"] = {":lua require('bufresize').max_width()<CR>", "Maximize window width"},
+    ["<leader>wo"] = {":lua require('bufresize').maximize()<CR>", "Maximize window"},
+  }
+}
+
 return M
