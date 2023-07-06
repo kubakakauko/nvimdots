@@ -1,13 +1,5 @@
 local M = {}
 
-M.nvim_notify = {
-  -- Configuration options go here
-  -- For example, to set the animation style:
-  stages = "fade_in_slide_out",
-  -- And to set the render style:
-  render_style = "minimal",
-  timeout = 5000,
-}
 
 M.ale = {
   fixers = {
