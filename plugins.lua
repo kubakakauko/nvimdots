@@ -335,16 +335,12 @@ local plugins = {
   { "tpope/vim-rhubarb", lazy = false },
   { "machakann/vim-highlightedyank", lazy = false },
   {
-    "hrsh7th/cmp-calc",
-    requires = { "hrsh7th/nvim-cmp" },
-  },
-  {
     "rcarriga/nvim-dap-ui",
     lazy = false,
     requires = { "mfussenegger/nvim-dap" },
   },
 
-  { "ravenxrz/DAPInstall.nvim" },
+  { "ravenxrz/DAPInstall.nvim", layz = false },
   {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
