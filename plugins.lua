@@ -335,11 +335,21 @@ local plugins = {
   { "tpope/vim-rhubarb", lazy = false },
   { "machakann/vim-highlightedyank", lazy = false },
   {
-    "rcarriga/nvim-dap-ui",
+    "mfussenegger/nvim-dap",
     lazy = false,
-    requires = { "mfussenegger/nvim-dap" },
+    config = function()
+      require "custom.dap"
+    end,
+    requires = {
+      {
+        "rcarriga/nvim-dap-ui",
+        config = function()
+          require "custom.dapui"
+        end,
+        cmd = "DapuiToggle",
+      },
+    },
   },
-
   { "ravenxrz/DAPInstall.nvim", layz = false },
   {
     "lukas-reineke/indent-blankline.nvim",
