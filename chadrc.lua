@@ -4,7 +4,7 @@ local M = {}
 -- Path to overriding theme and highlights files
 local highlights = require "custom.highlights"
 require "custom.configs.neovide"
-
+-- require "custom.configs.nvterm"
 
 M.ui = {
   theme = "github_dark",

@@ -102,7 +102,7 @@ M.dap = {
     ["<leader>b"] = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>", "Toggle Breakpoint" },
     ["<leader>B"] = { "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", "Set Breakpoint" },
     ["<leader>lp"] = { "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", "Set Log Point" },
-    ["<leader>dr"] = { "<cmd>lua require'dap'.repl.open()<CR>", "Open REPL" },
+    ["<leader>da"] = { "<cmd>lua require'dap'.repl.open()<CR>", "Open REPL" },
     ["<leader>dl"] = { "<cmd>lua require'dap'.run_last()<CR>", "Run Last" },
   },
 }
@@ -111,14 +111,10 @@ M.dapui = {
   plugin = true,
   n = {
     ["<leader>du"] = { "<cmd>lua require'dapui'.toggle()<CR>", "Toggle DAP UI" },
-    ["<leader>de"] = { "<cmd>lua require'dapui'.eval()<CR>", "Evaluate" }, 
-    ["<leader>dh"] = { "<cmd>DapuiHover<CR>", "Hover" },
-    ["<leader>ds"] = { "<cmd>DapuiScopes<CR>", "Scopes" },
-    ["<leader>dw"] = { "<cmd>DapuiWatches<CR>", "Watches" },
-    ["<leader>dr"] = { "<cmd>DapuiRepl<CR>", "REPL" },
-    ["<leader>dt"] = { "<cmd>DapuiToggle<CR>", "Toggle UI" },
+    ["<leader>de"] = { "<cmd>lua require'dapui'.eval()<CR>", "Evaluate" },
   },
 }
+
 M.crates = {
   plugin = true,
   n = {
