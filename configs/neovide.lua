@@ -1,10 +1,10 @@
 -- Neovide settings
 vim.g.neovide_theme = 'auto'
 vim.g.neovide_fullscreen = false
-vim.g.neovide_transparency = 0.80
-vim.g.neovide_refresh_rate_idle = 5
+vim.g.neovide_transparency = 0.90
+vim.g.neovide_refresh_rate_idle = 1
 vim.g.neovide_no_idle = true --Force redrawingd
-vim.g.neovide_refresh_rate = 60
+vim.g.neovide_refresh_rate = 144
 vim.g.neovide_cursor_animation_length = 0.03
 vim.g.neovide_cursor_trail_size = 0.8
 vim.g.neovide_scroll_animation_length = 0.1
@@ -25,5 +25,5 @@ vim.g.neovide_cursor_vfx_particle_speed = 15.0
 vim.g.neovide_cursor_vfx_particle_phase = 1.5
 vim.g.neovide_cursor_vfx_particle_curl = 1.0
 -- macos 
-vim.g.neovide_input_macos_alt_is_meta = false
-
+vim.g.neovide_input_macos_alt_is_meta = true
+vim.g.neovide_input_use_logo = true

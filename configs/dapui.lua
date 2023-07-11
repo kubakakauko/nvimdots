@@ -10,7 +10,7 @@ dapui.setup({
             { id = "watches", name = "Watches" },
         },
         size = 40,
-        position = "left",
+        position = "rigth",
     },
     floating = {
         max_height = nil,
