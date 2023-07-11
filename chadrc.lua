@@ -7,8 +7,8 @@ require "custom.configs.neovide"
 -- require "custom.configs.nvterm"
 
 M.ui = {
-  theme = "github_dark",
-  theme_toggle = { "github_dark", "one_light" },
+  theme = "chadracula",
+  theme_toggle = { "chadracula", "ayu_light" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,
