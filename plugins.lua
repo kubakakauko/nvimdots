@@ -19,7 +19,6 @@ local plugins = {
     end, -- Override to setup mason-lspconfig
   },
 
-  -- override plugin configs
   {
     "nacro90/numb.nvim",
     event = "BufRead",
@@ -51,7 +50,6 @@ local plugins = {
     opts = overrides.nvimtree,
   },
 
-  -- Install a plugin
   {
     "max397574/better-escape.nvim",
     event = "InsertEnter",
@@ -134,11 +132,9 @@ local plugins = {
   {
     "rmagatti/goto-preview",
     opts = overrides.goto_preview,
-    -- config = function()
-    --   require("goto-preview").setup {
-    --   }
-    --
-    -- end,
+    config = function()
+      require("goto-preview").setup {}
+    end,
   },
   {
     "ray-x/lsp_signature.nvim",
@@ -163,13 +159,7 @@ local plugins = {
       require("symbols-outline").setup()
     end,
   },
-  -- {
-  --   "Pocco81/auto-save.nvim",
-  --   event = "BufRead",
-  --   config = function()
-  --     require("auto-save").setup()
-  --   end,
-  -- },
+
   {
     "folke/todo-comments.nvim",
     event = "BufRead",
@@ -306,19 +296,8 @@ local plugins = {
   {
     "kwkarlwang/bufresize.nvim",
     config = function()
-      local opts = { noremap = true, silent = true }
       require("bufresize").setup {
         register = {
-          keys = {
-            { "n", "<leader>w<", "30<C-w><", opts },
-            { "n", "<leader>w>", "30<C-w>>", opts },
-            { "n", "<leader>w+", "10<C-w>+", opts },
-            { "n", "<leader>w-", "10<C-w>-", opts },
-            { "n", "<leader>w_", "<C-w>_", opts },
-            { "n", "<leader>w=", "<C-w>=", opts },
-            { "n", "<leader>w|", "<C-w>|", opts },
-            { "n", "<leader>wo", "<C-w>|<C-w>_", opts },
-          },
           trigger_events = { "BufWinEnter", "WinEnter" },
         },
         resize = {
@@ -332,7 +311,7 @@ local plugins = {
 
   { "mbbill/undotree", cmd = "UndotreeToggle" },
   { "j-hui/fidget.nvim", lazy = false, tag = "legacy", opts = require "custom.configs.fidget" },
-  { "tpope/vim-rhubarb", lazy = false },
+
   { "machakann/vim-highlightedyank", lazy = false },
   {
     "mfussenegger/nvim-dap",
@@ -389,6 +368,25 @@ local plugins = {
           },
           close_on_exit = true,
           auto_insert = true,
+        },
+      }
+    end,
+  },
+
+  {
+    "lukas-reineke/cmp-under-comparator",
+  },
+  {
+    "akinsho/git-conflict.nvim",
+    version = "*",
+    config = function()
+      require("git-conflict").setup {
+        default_mappings = true, -- disable buffer local mapping created by this plugin
+        default_commands = true, -- disable commands created by this plugin
+        disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
+        highlights = { -- They must have background color, otherwise the default color will be used
+          incoming = "DiffAdd",
+          current = "DiffText",
         },
       }
     end,

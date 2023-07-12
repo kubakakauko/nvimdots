@@ -5,7 +5,7 @@ M.error_lens ={
   -- theme background color with a color blender
   enabled = true,
   auto_adjust = {
-    enable = false,
+    enable = true,
     fallback_bg_color = nil, -- mandatory if enable true (e.g. #281478)
     step = 7, -- inc: colors should be brighter/darker
     total = 30 -- steps of blender
@@ -33,7 +33,7 @@ M.ale = {
     rust = { "rustfmt" },
     lua = { "lua-format" },
   },
-  fix_on_save = 1,
+  fix_on_save = 0,
 }
 
 M.symbol_outline = {
@@ -143,7 +143,7 @@ M.window_picker = {
   include_current = false,
   selection_chars = "ARSTDHNEIO",
   other_win_hl_color = "#79C0FF",
-  show_prompt = true,
+  show_prompt = false,
 
   -- type of hints you want to get
   -- following types are supported
@@ -227,7 +227,7 @@ M.copilot = {
     enable = true,
   },
   panel = {
-    enable = false,
+    enable = true,
   },
 }
 

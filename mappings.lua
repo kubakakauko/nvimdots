@@ -9,30 +9,42 @@ M.general = {
 
 M.trouble = {
   n = {
-    ["<leader>t"] = { "Trouble" },
-    ["<leader>tt"] = { "<cmd>TroubleToggle<cr>", "Trouble" },
-    ["<leader>tw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics" },
-    ["<leader>tx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics" },
-    ["<leader>tq"] = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix" },
-    ["<leader>tl"] = { "<cmd>TroubleToggle loclist<cr>", "Loclist" },
-    ["<leader>tr"] = { "<cmd>TroubleToggle lsp_references<cr>", "References" },
+    ["<leader>ot"] = { "+ Trouble" },
+    ["<leader>ott"] = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
+    ["<leader>otw"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics" },
+    ["<leader>otx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics" },
+    ["<leader>otq"] = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix" },
+    ["<leader>otl"] = { "<cmd>TroubleToggle loclist<cr>", "Loclist" },
+    ["<leader>otr"] = { "<cmd>TroubleToggle lsp_references<cr>", "References" },
   },
 }
 
 M.rust = {
   n = {
-    ["<leader>rr"] = { "<cmd>Cargo run<cr>", "Run Cargo" },
-    ["<leader>rb"] = { "<cmd>Cargo build<cr>", "Build Cargo" },
-    ["<leader>rt"] = { "<cmd>Cargo test<cr>", "Test Cargo" },
+    ["<leader>orr"] = { "+ Rust" },
+    ["<leader>orrr"] = { "<cmd>Cargo run<cr>", "Run Cargo" },
+    ["<leader>orrb"] = { "<cmd>Cargo build<cr>", "Build Cargo" },
+    ["<leader>orrt"] = { "<cmd>Cargo test<cr>", "Test Cargo" },
   },
 }
 
+M.crates = {
+  plugin = true,
+  n = {
+    ["<leader>orru"] = {
+      function()
+        require("crates").upgrade_all_crates()
+      end,
+      "update crates",
+    },
+  },
+}
 M.ale = {
   n = {
-    ["<leader>a"] = { "Ale" },
-    ["<leader>an"] = { "<cmd>ALENext<cr>", "Next ALE Warning/Error" },
-    ["<leader>ap"] = { "<cmd>ALEPrevious<cr>", "Previous ALE Warning/Error" },
-    ["<leader>af"] = { "<cmd>ALEFix<cr>", "Fix ALE Issues" },
+    ["<leader>oa"] = { "+ Ale" },
+    ["<leader>oan"] = { "<cmd>ALENext<cr>", "Next ALE Warning/Error" },
+    ["<leader>oap"] = { "<cmd>ALEPrevious<cr>", "Previous ALE Warning/Error" },
+    ["<leader>oaf"] = { "<cmd>ALEFix<cr>", "Fix ALE Issues" },
   },
 }
 
@@ -71,27 +83,15 @@ M.window_picker = {
 -- Keybindings for goto-preview
 M.goto_preview = {
   n = {
-    ["gpd"] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "Go to definition preview" },
-    ["gpi"] = { "<cmd>lua require('goto-preview').goto_preview_implementation()<cr>", "Go to implementation preview" },
-    ["gP"] = { "<cmd>lua require('goto-preview').close_all_win()<cr>", "Close all windows" },
+    ["<leader>o"] = { "+ Custom mappings" },
+    ["<leader>op"] = { "+ Goto preview" },
+    ["<leader>ogpd"] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "Go to definition preview" },
+    ["<leader>ogpi"] = {
+      "<cmd>lua require('goto-preview').goto_preview_implementation()<cr>",
+      "Go to implementation preview",
+    },
   },
 }
-
-M.dap_old = {
-  plugin = true,
-  n = {
-    ["<leader>db"] = { "<cmd> DapToggleBreakpoint <CR>" },
-    ["<leader>dus"] = {
-      function ()
-        local widgets = require('dap.ui.widgets');
-        local sidebar = widgets.sidebar(widgets.scopes);
-        sidebar.open();
-      end,
-      "Open debugging sidebar"
-    }
-  }
-}
-
 M.dap = {
   plugin = true,
   n = {
@@ -100,45 +100,50 @@ M.dap = {
     ["<F11>"] = { "<cmd>lua require'dap'.step_into()<CR>", "Step Into" },
     ["<F12>"] = { "<cmd>lua require'dap'.step_out()<CR>", "Step Out" },
     ["<leader>b"] = { "<cmd>lua require'dap'.toggle_breakpoint()<CR>", "Toggle Breakpoint" },
-    ["<leader>B"] = { "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", "Set Breakpoint" },
-    ["<leader>lp"] = { "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", "Set Log Point" },
-    ["<leader>da"] = { "<cmd>lua require'dap'.repl.open()<CR>", "Open REPL" },
-    ["<leader>dl"] = { "<cmd>lua require'dap'.run_last()<CR>", "Run Last" },
+    ["<leader>B"] = {
+      "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
+      "Set Breakpoint",
+    },
+    ["<leader>odp"] = {
+      "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>",
+      "Set Log Point",
+    },
+    ["<leader>oda"] = { "<cmd>lua require'dap'.repl.open()<CR>", "Open REPL" },
+    ["<leader>odl"] = { "<cmd>lua require'dap'.run_last()<CR>", "Run Last" },
+    ["<leader>ods"] = {
+      function()
+        local widgets = require "dap.ui.widgets"
+        local sidebar = widgets.sidebar(widgets.scopes)
+        sidebar.open()
+      end,
+      "Open debugging sidebar",
+    },
   },
 }
 
 M.dapui = {
   plugin = true,
   n = {
-    ["<leader>du"] = { "<cmd>lua require'dapui'.toggle()<CR>", "Toggle DAP UI" },
-    ["<leader>de"] = { "<cmd>lua require'dapui'.eval()<CR>", "Evaluate" },
+    ["<leader>od"] = {"+ DAP"},
+    ["<leader>odu"] = { "<cmd>lua require'dapui'.toggle()<CR>", "Toggle DAP UI" },
+    ["<leader>ode"] = { "<cmd>lua require'dapui'.eval()<CR>", "Evaluate" },
   },
 }
 
-M.crates = {
-  plugin = true,
-  n = {
-    ["<leader>rcu"] = {
-      function ()
-        require('crates').upgrade_all_crates()
-      end,
-      "update crates"
-    }
-  }
-}
 
 -- Your custom mappings
 M.bufresize = {
   n = {
-    ["<leader>w<"] = {":lua require('bufresize').resize('w', -30)<CR>", "Resize window width -30"},
-    ["<leader>w>"] = {":lua require('bufresize').resize('w', 30)<CR>", "Resize window width +30"},
-    ["<leader>w+"] = {":lua require('bufresize').resize('h', 10)<CR>", "Resize window height +10"},
-    ["<leader>w-"] = {":lua require('bufresize').resize('h', -10)<CR>", "Resize window height -10"},
-    ["<leader>w_"] = {":lua require('bufresize').max_height()<CR>", "Maximize window height"},
-    ["<leader>w="] = {":lua require('bufresize').equalize()<CR>", "Equalize window sizes"},
-    ["<leader>w|"] = {":lua require('bufresize').max_width()<CR>", "Maximize window width"},
-    ["<leader>wo"] = {":lua require('bufresize').maximize()<CR>", "Maximize window"},
-  }
+    ["<leader>orw"] = {"+ Resize buffer"},
+    ["<leader>orw<"] = { ":lua require('bufresize').resize('w', -30)<CR>", "Resize window width -30" },
+    ["<leader>orw>"] = { ":lua require('bufresize').resize('w', 30)<CR>", "Resize window width +30" },
+    ["<leader>orw+"] = { ":lua require('bufresize').resize('h', 10)<CR>", "Resize window height +10" },
+    ["<leader>orw-"] = { ":lua require('bufresize').resize('h', -10)<CR>", "Resize window height -10" },
+    ["<leader>orw_"] = { ":lua require('bufresize').max_height()<CR>", "Maximize window height" },
+    ["<leader>orw="] = { ":lua require('bufresize').equalize()<CR>", "Equalize window sizes" },
+    ["<leader>orw|"] = { ":lua require('bufresize').max_width()<CR>", "Maximize window width" },
+    ["<leader>owo"] = { ":lua require('bufresize').maximize()<CR>", "Maximize window" },
+  },
 }
 
 return M

@@ -1,7 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 
--- Macos settings ()
-vim.g.neovide_input_macos_alt_is_meta=true
+
 -- Auto resize panes when resizing nvim window
 autocmd("VimResized", {
   pattern = "*",
