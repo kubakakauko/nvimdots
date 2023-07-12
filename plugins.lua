@@ -379,10 +379,11 @@ local plugins = {
   {
     "akinsho/git-conflict.nvim",
     version = "*",
+    lazy = false,
     config = function()
       require("git-conflict").setup {
         default_mappings = true, -- disable buffer local mapping created by this plugin
-        default_commands = true, -- disable commands created by this plugin
+        default_commands = true, -- disable commands created by this plugnin
         disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
         highlights = { -- They must have background color, otherwise the default color will be used
           incoming = "DiffAdd",
@@ -390,6 +391,20 @@ local plugins = {
         },
       }
     end,
+  },
+
+  {
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    config = function()
+      -- require("lspsaga").setup {}
+      require("lspsaga").setup({
+      })
+    end,
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter", -- optional
+      "nvim-tree/nvim-web-devicons", -- optional
+    },
   },
   -- To make a plugin not be loaded
   -- {

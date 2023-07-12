@@ -146,4 +146,22 @@ M.bufresize = {
   },
 }
 
+
+M.lspsaga = {
+  n = {
+    ["gh"] = { ":Lspsaga lsp_finder<CR>", "Async Lsp Finder" },
+    ["<leader>ca"] = { ":Lspsaga code_action<CR>", "Code Action" },
+    ["K"] = { ":Lspsaga hover_doc<CR>", "Hover Doc" },
+    ["<C-f>"] = { ":Lspsaga smart_scroll_with_saga(1)<CR>", "Scroll Down Hover Doc" },
+    ["<C-b>"] = { ":Lspsaga smart_scroll_with_saga(-1)<CR>", "Scroll Up Hover Doc" },
+    ["gs"] = { ":Lspsaga signature_help<CR>", "SignatureHelp" },
+    ["gr"] = { ":Lspsaga rename<CR>", "Rename" },
+    ["gd"] = { ":Lspsaga preview_definition<CR>", "Preview Definition" },
+    ["<leader>cd"] = { ":Lspsaga show_line_diagnostics<CR>", "Show Diagnostics" },
+    ["<leader>cc"] = { ":Lspsaga show_cursor_diagnostics<CR>", "Jump Diagnostic" },
+    ["[e"] = { ":Lspsaga diagnostic_jump_prev<CR>", "Jump Diagnostic (Previous)" },
+    ["]e"] = { ":Lspsaga diagnostic_jump_next<CR>", "Jump Diagnostic (Next)" },
+    ["<leader>1"] = { ":Lspsaga term_toggle<CR>", "Float Terminal" },
+  },
+}
 return M
