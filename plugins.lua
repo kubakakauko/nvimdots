@@ -336,7 +336,7 @@ local plugins = {
     "lukas-reineke/indent-blankline.nvim",
     config = function()
       require("indent_blankline").setup {
-        -- for example, context is off by default, use this to turn it on
+        space_char_blankline = " ",
         show_current_context = true,
         show_current_context_start = true,
       }
@@ -408,6 +408,49 @@ local plugins = {
       "nvim-tree/nvim-web-devicons", -- optional
     },
   },
+
+{
+		"VonHeikemen/lsp-zero.nvim",
+		branch = "v2.x",
+		dependencies = {
+			-- LSP Support
+			{
+				"neovim/nvim-lspconfig", -- required
+			},
+			{ -- Optional
+				"williamboman/mason.nvim",
+				build = ":MasonUpdate", -- :MasonUpdate updates registry contents
+				config = function()
+					require("mason").setup()
+				end,
+			},
+
+
+			{ "williamboman/mason-lspconfig.nvim" }, -- Optional
+			-- Autocompletion
+			{ "hrsh7th/nvim-cmp" }, -- Required
+			{ "hrsh7th/cmp-nvim-lsp" }, -- Required
+			{
+				"L3MON4D3/LuaSnip", -- Required
+				dependencies = { "rafamadriz/friendly-snippets" },
+			},
+			{
+			"nvimdev/lspsaga.nvim",
+			dependencies = {
+				"nvim-treesitter/nvim-treesitter",
+				"nvim-tree/nvim-web-devicons",
+			},
+			config = function()
+				require("lspsaga").setup({})
+			end,
+			},
+		},
+		config = function()
+			require("custom.configs.lsp-zero")
+			-- require("kn.plugins.configs.cmp")
+		end,
+	},
+
   -- To make a plugin not be loaded
   -- {
   --   "NvChad/nvim-colorizer.lua",

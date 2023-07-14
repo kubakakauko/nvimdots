@@ -26,10 +26,10 @@ vim.g.neovide_cursor_vfx_particle_phase = 1.5
 vim.g.neovide_cursor_vfx_particle_curl = 1.0
 -- macos 
 vim.g.neovide_input_macos_alt_is_meta = true
-vim.g.neovide_input_use_logo = true
+-- vim.g.neovide_input_use_logo = true
 
 vim.g.neovide_scale_factor = 1.15
-vim.g.guifont = "Hack,Noto_Color_Emoji:h12:b"
+vim.g.guifont = "Hack,Noto_Color_Emoji:h17:b"
 
 local change_scale_factor = function(delta)
   vim.g.neovide_scale_factor = vim.g.neovide_scale_factor * delta
