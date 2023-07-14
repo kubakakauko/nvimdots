@@ -219,15 +219,17 @@ local plugins = {
     "timonv/vim-cargo",
     ft = "rust",
   },
-  {
-    "dense-analysis/ale",
-    ft = { "rust", "python", "javascript", "typescript", "sh", "c", "cpp", "lua" },
-    config = function()
-      local ale = require("custom.configs.overrides").ale
-      vim.g.ale_fixers = ale.fixers
-      -- vim.g.ale_fix_on_save = ale.fix_on_save
-    end,
-  },
+
+  -- {
+  --   "dense-analysis/ale",
+  --   ft = { "rust", "python", "javascript", "typescript", "sh", "c", "cpp", "lua" },
+  --   config = function()
+  --     local ale = require("custom.configs.overrides").ale
+  --     vim.g.ale_fixers = ale.fixers
+  --     -- vim.g.ale_fix_on_save = ale.fix_on_save
+  --   end,
+  -- },
+
   {
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",

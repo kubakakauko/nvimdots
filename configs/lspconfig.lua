@@ -31,17 +31,26 @@ lspconfig.sqlls.setup {
 lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "lua" },
   settings = {
     Lua = {
       diagnostics = {
         globals = { "vim" },
       },
+      workspace = {
+        library = {
+          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
+          [vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true,
+        },
+      },
     },
   },
 }
 
-lspconfig.tsserver.setup {}
+lspconfig.tsserver.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+}
 lspconfig.rust_analyzer.setup {
   -- Server-specific settings. See `:help lspconfig-setup`
   settings = {
