@@ -4,54 +4,99 @@ if not present then
   return
 end
 
-local b = null_ls.builtins
+local builtin = null_ls.builtins
+-- code action sources
+local code_actions = builtin.code_actions
+
+-- diagnostic sources
+local diagnostics = builtin.diagnostics
+
+-- formatting sources
+local formatting = builtin.formatting
+
+-- hover sources
+local hover = builtin.hover
+
+-- completion sources
+local completion = builtin.completion
+
+
 
 local sources = {
 
   -- webdev stuff
-  b.formatting.deno_fmt, -- choosed deno for ts/js files cuz its very fast!
-  b.formatting.prettier.with { filetypes = { "html", "markdown", "css" } }, -- so prettier works only on these filetypes
+  formatting.deno_fmt, -- choosed deno for ts/js files cuz its very fast!
+  formatting.prettier.with { filetypes = { "html", "markdown", "css" } }, -- so prettier works only on these filetypes
 
   -- Lua
-  b.formatting.stylua,
+  formatting.stylua,
 
   -- cpp
-  b.formatting.clang_format,
+  formatting.clang_format,
 
   -- yamlfix
-  b.formatting.yamlfix,
+  formatting.yamlfix,
 
   -- Python
-  b.formatting.autopep8,
-  b.diagnostics.flake8,
+  formatting.autopep8,
+  diagnostics.flake8,
 
   -- Rust
-  b.formatting.rustfmt,
+  formatting.rustfmt,
 
   -- JSON
-  b.formatting.fixjson,
-  b.diagnostics.jsonlint,
+  formatting.fixjson,
+  diagnostics.jsonlint,
 
   -- SQL
-  b.formatting.sqlfmt,
-  b.diagnostics.sqlfluff,
+  formatting.sqlfmt,
+  diagnostics.sqlfluff,
 
   -- YAML
-  b.formatting.yamlfmt,
-  b.diagnostics.yamllint,
+  formatting.yamlfmt,
+  diagnostics.yamllint,
 
   -- Dockerfile
-  b.diagnostics.hadolint,
+  diagnostics.hadolint,
 
   -- CSS
-  b.diagnostics.stylelint,
+  diagnostics.stylelint,
 
   -- TypeScript
-  b.formatting.prettier.with { filetypes = { "typescript" } },
+  formatting.prettier.with { filetypes = { "typescript" } },
 
 }
 
-null_ls.setup {
-  debug = false,
-  sources = sources,
+
+local rust_sources = {
+  formatting.rustfmt,
+  diagnostics.cargo_clippy,
+  diagnostics.rust_analyzer,
+  hover.rust_analyzer,
+  code_actions.rust_analyzer,
+  completion.rust_analyzer,
 }
+
+-- Add Rust sources to the existing sources table
+for _, source in ipairs(rust_sources) do
+  table.insert(sources, source)
+end
+
+
+
+local javascript_sources = {
+  formatting.prettier.with { filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" } },
+  diagnostics.tsserver,
+  hover.javascript,
+  code_actions.tsserver,
+  completion.tsserver,
+}
+
+-- Add JavaScript sources to the existing sources table
+for _, source in ipairs(javascript_sources) do
+  table.insert(sources, source)
+end
+
+null_ls.setup ({
+  sources = sources
+})
