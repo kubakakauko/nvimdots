@@ -124,6 +124,7 @@ M.goto_preview = {
 M.nvim_cmp = {
   sources = {
     { name = "nvim_lsp", group_index = 2 },
+    { name = 'omnisharp', group_index = 2 },
     { name = "crates", group_index = 2 },
     { name = "luasnip", group_index = 2 },
     { name = "buffer", group_index = 2 },

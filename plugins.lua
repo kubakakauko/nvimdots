@@ -400,8 +400,7 @@ local plugins = {
     event = "LspAttach",
     config = function()
       -- require("lspsaga").setup {}
-      require("lspsaga").setup({
-      })
+      require("lspsaga").setup {}
     end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter", -- optional
@@ -409,53 +408,80 @@ local plugins = {
     },
   },
 
-{
-		"VonHeikemen/lsp-zero.nvim",
-		branch = "v2.x",
-		dependencies = {
-			-- LSP Support
-			{
-				"neovim/nvim-lspconfig", -- required
-			},
-			{ -- Optional
-				"williamboman/mason.nvim",
-				build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-				config = function()
-					require("mason").setup()
-				end,
-			},
+  {
+    -- LSP Support
+    { -- Optional
+      "williamboman/mason.nvim",
+      build = ":MasonUpdate", -- :MasonUpdate updates registry contents
+      config = function()
+        require("mason").setup()
+      end,
+    },
+    { "williamboman/mason-lspconfig.nvim" }, -- Optional
+    -- Autocompletion
+    { "hrsh7th/nvim-cmp" }, -- Required
+    { "hrsh7th/cmp-nvim-lsp" }, -- Required
+    {
+      "L3MON4D3/LuaSnip", -- Required
+      dependencies = { "rafamadriz/friendly-snippets" },
+    },
+    {
+      "nvimdev/lspsaga.nvim",
+      dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-tree/nvim-web-devicons",
+      },
+      config = function()
+        require("lspsaga").setup {}
+      end,
+    },
+  },
+  {
+    "OmniSharp/omnisharp-vim",
+    branch = "master",
+    ft = { "cs", "vb", "fs", "cpp", "objc", "objcpp" },
 
-
-			{ "williamboman/mason-lspconfig.nvim" }, -- Optional
-			-- Autocompletion
-			{ "hrsh7th/nvim-cmp" }, -- Required
-			{ "hrsh7th/cmp-nvim-lsp" }, -- Required
-			{
-				"L3MON4D3/LuaSnip", -- Required
-				dependencies = { "rafamadriz/friendly-snippets" },
-			},
-			{
-			"nvimdev/lspsaga.nvim",
-			dependencies = {
-				"nvim-treesitter/nvim-treesitter",
-				"nvim-tree/nvim-web-devicons",
-			},
-			config = function()
-				require("lspsaga").setup({})
-			end,
-			},
-		},
-		config = function()
-			require("custom.configs.lsp-zero")
-			-- require("kn.plugins.configs.cmp")
-		end,
-	},
-
+    config = function()
+      vim.g.OmniSharp_server_stdio = 1
+      vim.g.OmniSharp_server_path = "/usr/local/bin/omnisharp"
+      vim.g.OmniSharp_selector_ui = "vertical"
+      vim.g.OmniSharp_popup_position = "peek"
+      vim.g.OmniSharp_popup_options = { "border" }
+      vim.g.OmniSharp_popup_mappings = { f = "<Esc>", q = "<Esc>" }
+      vim.g.OmniSharp_disable_quickfix = 1
+      vim.g.OmniSharp_disable_floating_window = 1
+      vim.g.OmniSharp_want_snippet = 1
+      vim.g.OmniSharp_snippet_keyword = "snippet"
+      vim.g.OmniSharp_snippet_format = "${1:method_name}(${2:arguments})${3:body}"
+      vim.g.OmniSharp_snippet_fields = {
+        method_name = "Method Name",
+        arguments = "Arguments",
+        body = "Body",
+      }
+      vim.g.OmniSharp_host_log_level = "Warning"
+      vim.g.OmniSharp_host_stderr_log_level = "Warning"
+      vim.g.OmniSharp_host_stdout_log_level = "Warning"
+      vim.g.OmniSharp_selector_ui = "vertical"
+      vim.g.OmniSharp_popup_position = "peek"
+      vim.g.OmniSharp_popup_options = { "border" }
+      vim.g.OmniSharp_popup_mappings = { f = "<Esc>", q = "<Esc>" }
+      vim.g.OmniSharp_disable_quickfix = 1
+      vim.g.OmniSharp_disable_floating_window = 1
+      vim.g.OmniSharp_want_snippet = 1
+      vim.g.OmniSharp_snippet_keyword = "snippet"
+      vim.g.OmniSharp_snippet_format = "${1:method_name}(${2:arguments})${3:body}"
+      vim.g.OmniSharp_snippet_fields = {
+        method_name = "Method Name",
+        arguments = "Arguments",
+        body = "Body",
+      }
+      vim.g.OmniSharp_host_log_level = "Warning"
+      vim.g.OmniSharp_host_stderr_log_level = "Warning"
+      vim.g.OmniSharp_host_stdout_log_level = "Warning"
+      vim.g.OmniSharp_selector_ui = "vertical"
+    end,
+  },
   -- To make a plugin not be loaded
-  -- {
-  --   "NvChad/nvim-colorizer.lua",
-  --   enabled = false
-  -- },
 
   -- All NvChad plugins are lazy-loaded by default
   -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
