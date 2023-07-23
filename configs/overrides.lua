@@ -245,6 +245,9 @@ M.treesitter = {
     "markdown",
     "markdown_inline",
     "rust",
+    "c_sharp",
+    "cpp",
+    "python",
   },
 
   context_commentstring = {

@@ -4,7 +4,7 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require "lspconfig"
 
 -- if you just want default config for the servers then put them in a table
-local servers = { "html", "cssls", "clangd" }
+local servers = { "html", "cssls", "clangd", "pyright", "sqlls", "lua_ls", "tsserver", "rust_analyzer" }
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
@@ -27,6 +27,16 @@ lspconfig.sqlls.setup {
   capabilities = capabilities,
   cmd = { "sql-language-server", "up", "--method", "stdio" },
 }
+
+-- Setup language server for OmniSharp (C# and .NET development)
+
+lspconfig.omnisharp.setup({
+    cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+    on_attach = on_attach,
+    capabilities = capabilities,
+    -- filetypes = { "cs", "cshtml", "razor", "axaml.cs", "axaml" },
+    -- Additional configurations for OmniSharp (if needed)
+})
 
 lspconfig.lua_ls.setup {
   on_attach = on_attach,

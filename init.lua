@@ -1,5 +1,8 @@
 local autocmd = vim.api.nvim_create_autocmd
 
+vim.g.OmniSharp_server_use_mono = 1
+vim.g.OmniSharp_server_use_net6 = 0
+vim.g.OmniSharp_loglevel = "DEBUG"
 
 -- Auto resize panes when resizing nvim window
 autocmd("VimResized", {
@@ -22,4 +25,13 @@ autocmd('User', {
       create_buffer_local_mappings()
     end)
   end
+})
+
+-- Autocmd to change working directory to the current file's location
+autocmd("BufEnter", {
+  pattern = "*",
+  callback = function()
+    local path = vim.fn.expand('%:p:h')
+    vim.cmd('lcd ' .. path)
+  end,
 })

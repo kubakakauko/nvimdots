@@ -58,6 +58,30 @@ dap.configurations.python = {
   },
 }
 
+dap.configurations.cs = {
+    {
+        name = "Launch",
+        type = "dotnet_core", -- Use the dotnet_core adapter here
+        request = "launch",
+        program = function()
+            return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}',
+        stopOnEntry = false,
+        args = {},
+        runInTerminal = false,
+    },
+}
+
+
+dap.adapters.dotnet_core = {
+    type = 'executable',
+    command = 'dotnet',
+    args = { 'lldb', '--interpreter=vscode' },
+}
+
+
+
 dap.configurations.cpp = {
   {
     name = "Launch",

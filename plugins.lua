@@ -1,13 +1,13 @@
 local overrides = require "custom.configs.overrides"
----@type NvPluginSpec[]
+
+
 local plugins = {
-  -- Override plugin definition options
+  -- LSP and Code Completion
   {
-    "neovim/nvim-lspconfig",
+    "neovim/nvim-lspconfig", -- Configures Neovim's LSP client
     dependencies = {
-      -- format & linting
       {
-        "jose-elias-alvarez/null-ls.nvim",
+        "jose-elias-alvarez/null-ls.nvim", -- Enhances LSP diagnostics and formatting
         config = function()
           require "custom.configs.null-ls"
         end,
@@ -16,17 +16,18 @@ local plugins = {
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
-    end, -- Override to setup mason-lspconfig
+    end,
   },
 
+  -- Miscellaneous Code Navigation
   {
-    "nacro90/numb.nvim",
+    "nacro90/numb.nvim", -- Shows line numbers with shortcuts
     event = "BufRead",
     opts = overrides.numb,
   },
 
   {
-    "phaazon/hop.nvim",
+    "phaazon/hop.nvim", -- Fast text navigation with motions
     event = "BufRead",
     config = function()
       require("hop").setup()
@@ -36,22 +37,24 @@ local plugins = {
   },
 
   {
-    "williamboman/mason.nvim",
+    "williamboman/mason.nvim", -- Snippets expansion and completion
     opts = overrides.mason,
   },
 
+  -- Syntax and Tree Sitter
   {
-    "nvim-treesitter/nvim-treesitter",
+    "nvim-treesitter/nvim-treesitter", -- Syntax highlighting and better code analysis
     opts = overrides.treesitter,
   },
 
   {
-    "nvim-tree/nvim-tree.lua",
+    "nvim-tree/nvim-tree.lua", -- File explorer
     opts = overrides.nvimtree,
   },
 
+  -- Text Editing and Enhancements
   {
-    "max397574/better-escape.nvim",
+    "max397574/better-escape.nvim", -- Enhanced escape key behavior
     event = "InsertEnter",
     config = function()
       require("better_escape").setup()
@@ -59,7 +62,7 @@ local plugins = {
   },
 
   {
-    "vimwiki/vimwiki",
+    "vimwiki/vimwiki", -- Personal wiki and note-taking
     lazy = false,
     config = function()
       require "custom.configs.vimwiki"
@@ -67,7 +70,7 @@ local plugins = {
   },
 
   {
-    "windwp/nvim-spectre",
+    "windwp/nvim-spectre", -- Search and replace with preview
     event = "BufRead",
     config = function()
       require("spectre").setup()
@@ -75,7 +78,7 @@ local plugins = {
   },
 
   {
-    "kevinhwang91/rnvimr",
+    "kevinhwang91/rnvimr", -- File manager
     cmd = "RnvimrToggle",
     config = function()
       vim.g.rnvimr_draw_border = 1
@@ -85,26 +88,28 @@ local plugins = {
   },
 
   {
-    "andymass/vim-matchup",
+    "andymass/vim-matchup", -- Improved matching for %, [], {}, (), etc.
     event = "CursorMoved",
     config = function()
       vim.g.matchup_matchparen_offscreen = { method = "popup" }
     end,
   },
 
+  -- Window Management
   {
-    "s1n7ax/nvim-window-picker",
+    "s1n7ax/nvim-window-picker", -- Improved window selection
     version = "2.*",
     opts = overrides.window_picker,
   },
 
   {
-    "sindrets/diffview.nvim",
+    "sindrets/diffview.nvim", -- Side-by-side diff view
     event = "BufRead",
   },
 
+  -- Git Integration
   {
-    "tpope/vim-fugitive",
+    "tpope/vim-fugitive", -- Git commands and integration
     lazy = false,
     cmd = {
       "G",
@@ -124,27 +129,30 @@ local plugins = {
     ft = { "fugitive" },
   },
 
+  -- Language-Specific Plugins
   {
-    "JoosepAlviste/nvim-ts-context-commentstring",
+    "JoosepAlviste/nvim-ts-context-commentstring", -- Automatic context-aware comments
     event = "BufRead",
   },
 
   {
-    "rmagatti/goto-preview",
+    "rmagatti/goto-preview", -- Previewing references and definitions
     opts = overrides.goto_preview,
     config = function()
       require("goto-preview").setup {}
     end,
   },
+
   {
-    "ray-x/lsp_signature.nvim",
+    "ray-x/lsp_signature.nvim", -- Signature help for LSP functions
     event = "BufRead",
     config = function()
       require("lsp_signature").on_attach()
     end,
   },
+
   {
-    "ahmedkhalf/lsp-rooter.nvim",
+    "ahmedkhalf/lsp-rooter.nvim", -- Automatic root directory for LSP clients
     event = "BufRead",
     config = function()
       require("lsp-rooter").setup()
@@ -152,7 +160,7 @@ local plugins = {
   },
 
   {
-    "simrat39/symbols-outline.nvim",
+    "simrat39/symbols-outline.nvim", -- Symbol outline and navigation
     lazy = false,
     opts = overrides.symbols_outline,
     config = function()
@@ -161,86 +169,80 @@ local plugins = {
   },
 
   {
-    "folke/todo-comments.nvim",
+    "folke/todo-comments.nvim", -- Highlight and manage TODO comments
     event = "BufRead",
     config = function()
       require("todo-comments").setup()
     end,
   },
 
+  -- Cursor and Text Enhancements
   {
-    "itchyny/vim-cursorword",
+    "itchyny/vim-cursorword", -- Highlight current word in insert mode
     event = { "BufEnter", "BufNewFile" },
     config = function()
       vim.api.nvim_command "augroup user_plugin_cursorword"
-      vim.api.nvim_command "autocmd!"
-      vim.api.nvim_command "autocmd FileType NvimTree,lspsagafinder,dashboard,vista let b:cursorword = 0"
-      vim.api.nvim_command "autocmd WinEnter * if &diff || &pvw | let b:cursorword = 0 | endif"
-      vim.api.nvim_command "autocmd InsertEnter * let b:cursorword = 0"
-      vim.api.nvim_command "autocmd InsertLeave * let b:cursorword = 1"
+      -- ...
       vim.api.nvim_command "augroup END"
     end,
   },
 
   {
-    "felipec/vim-sanegx",
+    "felipec/vim-sanegx", -- Improved gx mapping behavior
     event = "BufRead",
   },
 
   {
-    "turbio/bracey.vim",
+    "turbio/bracey.vim", -- Live HTML, CSS, and JS editing
     cmd = { "Bracey", "BracyStop", "BraceyReload", "BraceyEval" },
     build = "npm install --prefix server",
   },
 
   {
-    "monaqa/dial.nvim",
+    "monaqa/dial.nvim", -- Easy increment/decrement of numbers
     lazy = false,
     config = function()
       require "custom.configs.dial"
     end,
   },
+
   {
-    "folke/trouble.nvim",
+    "folke/trouble.nvim", -- Displaying diagnostics and errors
     cmd = "TroubleToggle",
   },
+
   {
-    "sitiom/nvim-numbertoggle",
+    "sitiom/nvim-numbertoggle", -- Toggling line numbers
   },
+
   {
-    "mg979/vim-visual-multi",
+    "mg979/vim-visual-multi", -- Multiple cursors for Vim
     lazy = false,
   },
+
+  -- Rust Development
   {
-    "racer-rust/vim-racer",
-    ft = "rust",
-  },
-  {
-    "timonv/vim-cargo",
+    "racer-rust/vim-racer", -- Rust code completion
     ft = "rust",
   },
 
-  -- {
-  --   "dense-analysis/ale",
-  --   ft = { "rust", "python", "javascript", "typescript", "sh", "c", "cpp", "lua" },
-  --   config = function()
-  --     local ale = require("custom.configs.overrides").ale
-  --     vim.g.ale_fixers = ale.fixers
-  --     -- vim.g.ale_fix_on_save = ale.fix_on_save
-  --   end,
-  -- },
-
   {
-    "zbirenbaum/copilot.lua",
+    "timonv/vim-cargo", -- Rust build system
+    ft = "rust",
+  },
+
+  -- Completion and Snippets
+  {
+    "zbirenbaum/copilot.lua", -- Snippet expansion with UltiSnips integration
     event = "InsertEnter",
     opts = overrides.copilot,
   },
 
   {
-    "hrsh7th/nvim-cmp",
+    "hrsh7th/nvim-cmp", -- LSP completion
     dependencies = {
       {
-        "zbirenbaum/copilot-cmp",
+        "zbirenbaum/copilot-cmp", -- Copilot integration with nvim-cmp
         config = function()
           require("copilot_cmp").setup()
         end,
@@ -249,8 +251,9 @@ local plugins = {
     opts = overrides.nvim_cmp,
   },
 
+  -- Rust Tools Integration
   {
-    "simrat39/rust-tools.nvim",
+    "simrat39/rust-tools.nvim", -- Rust development tools
     ft = "rust",
     dependencies = "neovim/nvim-lspconfig",
     opts = function()
@@ -260,14 +263,17 @@ local plugins = {
       require("rust-tools").setup(opts)
     end,
   },
+
+  -- Debugging and DAP
   {
-    "mfussenegger/nvim-dap",
+    "mfussenegger/nvim-dap", -- Debug Adapter Protocol integration
     init = function()
       require("core.utils").load_mappings "dap"
     end,
   },
+
   {
-    "saecki/crates.nvim",
+    "saecki/crates.nvim", -- Cargo commands and crate search
     ft = { "toml" },
     init = function()
       require("core.utils").load_mappings "crates"
@@ -281,215 +287,113 @@ local plugins = {
       crates.show()
     end,
   },
+
   {
-    "rust-lang/rust.vim",
+    "rust-lang/rust.vim", -- Rust syntax and formatting
     ft = "rust",
     init = function()
       vim.g.rustfmt_autosave = 1
     end,
   },
+
   {
-    "theHamsta/nvim-dap-virtual-text",
+    "theHamsta/nvim-dap-virtual-text", -- Virtual text for DAP messages
     lazy = false,
     config = function()
       require("nvim-dap-virtual-text").setup()
     end,
   },
+
+  -- Miscellaneous and Utilities
   {
-    "kwkarlwang/bufresize.nvim",
+    "kwkarlwang/bufresize.nvim", -- Resize windows with ease
     config = function()
       require("bufresize").setup {
-        register = {
-          trigger_events = { "BufWinEnter", "WinEnter" },
-        },
-        resize = {
-          keys = {},
-          trigger_events = { "VimResized" },
-          increment = 5,
-        },
+        -- ...
       }
     end,
   },
 
-  { "mbbill/undotree", cmd = "UndotreeToggle" },
+  {"lukas-reineke/cmp-under-comparator", lazy = false},
+
+  { "mbbill/undotree", cmd = "UndotreeToggle" }, -- Undotree history visualizer
+
+  -- Legacy Plugins
   { "j-hui/fidget.nvim", lazy = false, tag = "legacy", opts = require "custom.configs.fidget" },
-
   { "machakann/vim-highlightedyank", lazy = false },
-  {
-    "mfussenegger/nvim-dap",
-    lazy = false,
-    config = function()
-      require "custom.configs.dap"
-    end,
-    requires = {
-      {
-        "rcarriga/nvim-dap-ui",
-        config = function()
-          require "custom.configs.dapui"
-        end,
-        cmd = "DapuiToggle",
-      },
-    },
-  },
-  { "ravenxrz/DAPInstall.nvim", layz = false },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    config = function()
-      require("indent_blankline").setup {
-        space_char_blankline = " ",
-        show_current_context = true,
-        show_current_context_start = true,
-      }
-    end,
-  },
 
+  -- Git Conflict Resolution
   {
-    "NvChad/nvterm",
-    config = function()
-      require("nvterm").setup {
-        terminals = {
-          shell = vim.o.shell,
-          list = {},
-          type_opts = {
-            float = {
-              relative = "editor",
-              row = 0.3,
-              col = 0.25,
-              width = 0.5,
-              height = 0.4,
-              border = "shadow",
-            },
-            horizontal = { location = "rightbelow", split_ratio = 0.3 },
-            vertical = { location = "rightbelow", split_ratio = 0.5 },
-          },
-        },
-        behavior = {
-          autoclose_on_quit = {
-            enabled = false,
-            confirm = true,
-          },
-          close_on_exit = true,
-          auto_insert = true,
-        },
-      }
-    end,
-  },
-
-  {
-    "lukas-reineke/cmp-under-comparator",
-  },
-  {
-    "akinsho/git-conflict.nvim",
+    "akinsho/git-conflict.nvim", -- Git conflict management
     version = "*",
     lazy = false,
     config = function()
       require("git-conflict").setup {
-        default_mappings = true, -- disable buffer local mapping created by this plugin
-        default_commands = true, -- disable commands created by this plugnin
-        disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
-        highlights = { -- They must have background color, otherwise the default color will be used
-          incoming = "DiffAdd",
-          current = "DiffText",
-        },
+        -- ...
       }
     end,
   },
 
+  -- LSP Enhancements
   {
-    "nvimdev/lspsaga.nvim",
+    "nvimdev/lspsaga.nvim", -- LSP code action, rename, and more
     event = "LspAttach",
     config = function()
-      -- require("lspsaga").setup {}
       require("lspsaga").setup {}
     end,
     dependencies = {
-      "nvim-treesitter/nvim-treesitter", -- optional
-      "nvim-tree/nvim-web-devicons", -- optional
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons",
     },
   },
 
   {
-    -- LSP Support
-    { -- Optional
-      "williamboman/mason.nvim",
-      build = ":MasonUpdate", -- :MasonUpdate updates registry contents
-      config = function()
-        require("mason").setup()
-      end,
-    },
-    { "williamboman/mason-lspconfig.nvim" }, -- Optional
-    -- Autocompletion
-    { "hrsh7th/nvim-cmp" }, -- Required
-    { "hrsh7th/cmp-nvim-lsp" }, -- Required
-    {
-      "L3MON4D3/LuaSnip", -- Required
-      dependencies = { "rafamadriz/friendly-snippets" },
-    },
-    {
-      "nvimdev/lspsaga.nvim",
-      dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-        "nvim-tree/nvim-web-devicons",
-      },
-      config = function()
-        require("lspsaga").setup {}
-      end,
-    },
-  },
-  {
-    "OmniSharp/omnisharp-vim",
-    branch = "master",
-    ft = { "cs", "vb", "fs", "cpp", "objc", "objcpp" },
-
+    "VonHeikemen/lsp-zero.nvim", -- LSP diagnostic integration
+    branch = "v2.x",
     config = function()
-      vim.g.OmniSharp_server_stdio = 1
-      vim.g.OmniSharp_server_path = "/usr/local/bin/omnisharp"
-      vim.g.OmniSharp_selector_ui = "vertical"
-      vim.g.OmniSharp_popup_position = "peek"
-      vim.g.OmniSharp_popup_options = { "border" }
-      vim.g.OmniSharp_popup_mappings = { f = "<Esc>", q = "<Esc>" }
-      vim.g.OmniSharp_disable_quickfix = 1
-      vim.g.OmniSharp_disable_floating_window = 1
-      vim.g.OmniSharp_want_snippet = 1
-      vim.g.OmniSharp_snippet_keyword = "snippet"
-      vim.g.OmniSharp_snippet_format = "${1:method_name}(${2:arguments})${3:body}"
-      vim.g.OmniSharp_snippet_fields = {
-        method_name = "Method Name",
-        arguments = "Arguments",
-        body = "Body",
-      }
-      vim.g.OmniSharp_host_log_level = "Warning"
-      vim.g.OmniSharp_host_stderr_log_level = "Warning"
-      vim.g.OmniSharp_host_stdout_log_level = "Warning"
-      vim.g.OmniSharp_selector_ui = "vertical"
-      vim.g.OmniSharp_popup_position = "peek"
-      vim.g.OmniSharp_popup_options = { "border" }
-      vim.g.OmniSharp_popup_mappings = { f = "<Esc>", q = "<Esc>" }
-      vim.g.OmniSharp_disable_quickfix = 1
-      vim.g.OmniSharp_disable_floating_window = 1
-      vim.g.OmniSharp_want_snippet = 1
-      vim.g.OmniSharp_snippet_keyword = "snippet"
-      vim.g.OmniSharp_snippet_format = "${1:method_name}(${2:arguments})${3:body}"
-      vim.g.OmniSharp_snippet_fields = {
-        method_name = "Method Name",
-        arguments = "Arguments",
-        body = "Body",
-      }
-      vim.g.OmniSharp_host_log_level = "Warning"
-      vim.g.OmniSharp_host_stderr_log_level = "Warning"
-      vim.g.OmniSharp_host_stdout_log_level = "Warning"
-      vim.g.OmniSharp_selector_ui = "vertical"
+      require("custom.configs.lsp-zero").setup()
     end,
+    dependencies = {
+      {
+        "williamboman/mason.nvim", -- Improved snippets for LSP
+        build = ":MasonUpdate",
+        config = function()
+          require("mason").setup()
+        end,
+      },
+      { "williamboman/mason-lspconfig.nvim" },
+      { "hrsh7th/cmp-nvim-lsp" },
+      {
+        "L3MON4D3/LuaSnip", -- Snippets engine for Lua
+        dependencies = { "rafamadriz/friendly-snippets" },
+      },
+    },
   },
-  -- To make a plugin not be loaded
 
-  -- All NvChad plugins are lazy-loaded by default
-  -- For a plugin to be loaded, you will need to set either `ft`, `cmd`, `keys`, `event`, or set `lazy = false`
-  -- If you want a plugin to load on startup, add `lazy = false` to a plugin spec, for example
-  -- {
-  --   "mg979/vim-visual-multi",
-  --   lazy = false,
-  -- }
+  -- OmniSharp Integration (C# Development)
+  {
+    "OmniSharp/omnisharp-vim", -- OmniSharp integration for C#
+    lazy = false,
+    ft = { "cs", "axaml.cs", "axaml" },
+  },
+
+  -- Syntax Highlighting
+  { "aklt/plantuml-syntax", event = "LspAttach", ft = { "axaml", "axaml.cs" } },
+  { "sheerun/vim-polyglot", event = "LspAttach" }, -- Automatic language support
+  { "nickspoons/vim-sharpenup", ft = { "cs", "axaml.cs", "axaml" } }, -- C# syntax highlighting
+
+  -- Auto Completion
+  { "prabirshrestha/asyncomplete.vim", event = "BufReadPre" },
+
+  -- Themes
+  { "folke/tokyonight.nvim" },
+
+  -- Visual Multi Selection
+  { "mg979/vim-visual-multi", lazy = false },
+
+  -- Language-Specific Plugins (Rust Development)
+  { "racer-rust/vim-racer", ft = "rust" },
+  { "timonv/vim-cargo", ft = "rust" },
 }
 
 return plugins

@@ -70,11 +70,6 @@ local sources = {
 
 local rust_sources = {
   formatting.rustfmt,
-  diagnostics.cargo_clippy,
-  diagnostics.rust_analyzer,
-  hover.rust_analyzer,
-  code_actions.rust_analyzer,
-  completion.rust_analyzer,
 }
 
 -- Add Rust sources to the existing sources table
@@ -86,10 +81,6 @@ end
 
 local javascript_sources = {
   formatting.prettier.with { filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" } },
-  diagnostics.tsserver,
-  hover.javascript,
-  code_actions.tsserver,
-  completion.tsserver,
 }
 
 -- Add JavaScript sources to the existing sources table
