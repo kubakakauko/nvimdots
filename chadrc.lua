@@ -7,19 +7,26 @@ require "custom.configs.neovide"
 -- require "custom.configs.nvterm"
 
 M.ui = {
-  theme = "doomchad",
-  theme_toggle = { "doomchad", "one_light" },
+  theme = "gruvchad",
+  theme_toggle = { "gruvchad", "one_light" },
 
   hl_override = highlights.override,
   hl_add = highlights.add,
   lsp_semantic_tokens = true,
+
+
   nvdash = {
     load_on_startup = true,
   },
 
   statusline ={
-    theme = "minimal",
-    separator_style = "round",
+    theme = "default",
+    separator_style = "default",
+  },
+
+  tabufline = {
+    lazyload = true,
+    overriden_modules = nil,
   },
 }
 

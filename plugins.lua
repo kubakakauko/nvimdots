@@ -1,6 +1,5 @@
 local overrides = require "custom.configs.overrides"
 
-
 local plugins = {
   -- LSP and Code Completion
   {
@@ -100,6 +99,9 @@ local plugins = {
     "s1n7ax/nvim-window-picker", -- Improved window selection
     version = "2.*",
     opts = overrides.window_picker,
+    require("window_picker").pick_window {
+      hint = "floating-big-letter",
+    },
   },
 
   {
@@ -314,7 +316,7 @@ local plugins = {
     end,
   },
 
-  {"lukas-reineke/cmp-under-comparator", lazy = false},
+  { "lukas-reineke/cmp-under-comparator", lazy = false },
 
   { "mbbill/undotree", cmd = "UndotreeToggle" }, -- Undotree history visualizer
 
