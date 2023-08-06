@@ -3,6 +3,8 @@ local autocmd = vim.api.nvim_create_autocmd
 vim.g.OmniSharp_server_use_mono = 1
 vim.g.OmniSharp_server_use_net6 = 0
 vim.g.OmniSharp_loglevel = "DEBUG"
+vim.g.loaded_python3_provider=1
+vim.g.loaded_node_provider=1
 
 -- Auto resize panes when resizing nvim window
 autocmd("VimResized", {

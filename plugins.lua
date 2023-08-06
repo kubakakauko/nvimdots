@@ -53,13 +53,12 @@ local plugins = {
 
   -- Text Editing and Enhancements
   {
-    "max397574/better-escape.nvim", -- Enhanced escape key behavior
+    "max397574/better-escape.nvim",
     event = "InsertEnter",
     config = function()
       require("better_escape").setup()
     end,
   },
-
   {
     "vimwiki/vimwiki", -- Personal wiki and note-taking
     lazy = false,
@@ -99,9 +98,6 @@ local plugins = {
     "s1n7ax/nvim-window-picker", -- Improved window selection
     version = "2.*",
     opts = overrides.window_picker,
-    require("window_picker").pick_window {
-      hint = "floating-big-letter",
-    },
   },
 
   {
@@ -192,12 +188,6 @@ local plugins = {
   {
     "felipec/vim-sanegx", -- Improved gx mapping behavior
     event = "BufRead",
-  },
-
-  {
-    "turbio/bracey.vim", -- Live HTML, CSS, and JS editing
-    cmd = { "Bracey", "BracyStop", "BraceyReload", "BraceyEval" },
-    build = "npm install --prefix server",
   },
 
   {
