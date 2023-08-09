@@ -21,18 +21,12 @@ local plugins = {
   -- Miscellaneous Code Navigation
   {
     "nacro90/numb.nvim", -- Shows line numbers with shortcuts
-    event = "BufRead",
     opts = overrides.numb,
   },
 
   {
     "phaazon/hop.nvim", -- Fast text navigation with motions
-    event = "BufRead",
-    config = function()
-      require("hop").setup()
-      vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
-      vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
-    end,
+    opts = overrides.hop,
   },
 
   {
@@ -74,17 +68,7 @@ local plugins = {
       require("spectre").setup()
     end,
   },
-
-  {
-    "kevinhwang91/rnvimr", -- File manager
-    cmd = "RnvimrToggle",
-    config = function()
-      vim.g.rnvimr_draw_border = 1
-      vim.g.rnvimr_pick_enable = 1
-      vim.g.rnvimr_bw_enable = 1
-    end,
-  },
-
+ 
   {
     "andymass/vim-matchup", -- Improved matching for %, [], {}, (), etc.
     event = "CursorMoved",
@@ -109,22 +93,8 @@ local plugins = {
   {
     "tpope/vim-fugitive", -- Git commands and integration
     lazy = false,
-    cmd = {
-      "G",
-      "Git",
-      "Gdiffsplit",
-      "Gread",
-      "Gwrite",
-      "Ggrep",
-      "GMove",
-      "GDelete",
-      "GBrowse",
-      "GRemove",
-      "GRename",
-      "Glgrep",
-      "Gedit",
-    },
     ft = { "fugitive" },
+    opts = overrides.fugitive,
   },
 
   -- Language-Specific Plugins
@@ -180,7 +150,6 @@ local plugins = {
     event = { "BufEnter", "BufNewFile" },
     config = function()
       vim.api.nvim_command "augroup user_plugin_cursorword"
-      -- ...
       vim.api.nvim_command "augroup END"
     end,
   },
@@ -300,9 +269,7 @@ local plugins = {
   {
     "kwkarlwang/bufresize.nvim", -- Resize windows with ease
     config = function()
-      require("bufresize").setup {
-        -- ...
-      }
+      require("bufresize").setup {}
     end,
   },
 
@@ -320,9 +287,7 @@ local plugins = {
     version = "*",
     lazy = false,
     config = function()
-      require("git-conflict").setup {
-        -- ...
-      }
+      require("git-conflict").setup {}
     end,
   },
 

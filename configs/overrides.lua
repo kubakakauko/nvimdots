@@ -134,6 +134,7 @@ M.nvim_cmp = {
 }
 
 M.numb = {
+  event = "BufRead",
   show_numbers = true,
   show_cursorline = true,
 }
@@ -407,4 +408,58 @@ M.presence = {
   line_number_text = "Line %s out of %s",
 }
 
+M.fugative = {
+  cmd = {
+    "G",
+    "Git",
+    "Gdiffsplit",
+    "Gread",
+    "Gwrite",
+    "Ggrep",
+    "GMove",
+    "GDelete",
+    "GBrowse",
+    "GRemove",
+    "GRename",
+    "Glgrep",
+    "Gedit",
+  },
+}
+M.hop = {
+  event = "bufread",
+  config = function()
+    require("hop").setup()
+  end,
+  vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true }),
+  vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true }),
+}
+
+M.nvim_lspconfig = {
+  dependencies = {
+    {
+      "jose-elias-alvarez/null-ls.nvim", -- Enhances LSP diagnostics and formatting
+      config = function()
+        require "custom.configs.null-ls"
+      end,
+    },
+  },
+  config = function()
+    require "plugins.configs.lspconfig"
+    require "custom.configs.lspconfig"
+  end,
+}
+
+M.better_escape = {
+  event = "InsertEnter",
+  config = function()
+    require("better_escape").setup {
+
+      -- change the default mapping <Esc>
+      mapping = { "jk", "jj" },
+      timeout = vim.o.timeoutlen,
+      clear_empty_lines = true,
+      keys = "<Esc>",
+    }
+  end,
+}
 return M
