@@ -1,5 +1,5 @@
 local M = {}
-M.error_lens ={
+M.error_lens = {
   -- this setting tries to auto adjust the colors
   -- based on the diagnostic-highlight groups and your
   -- theme background color with a color blender
@@ -8,7 +8,7 @@ M.error_lens ={
     enable = true,
     fallback_bg_color = nil, -- mandatory if enable true (e.g. #281478)
     step = 7, -- inc: colors should be brighter/darker
-    total = 30 -- steps of blender
+    total = 30, -- steps of blender
   },
   prefix = 4, -- distance code <-> diagnostic message
   -- default colors
@@ -20,10 +20,9 @@ M.error_lens ={
     info_fg = "#5B38E8",
     info_bg = "#281478",
     hint_fg = "#25E64B",
-    hint_bg = "#147828"
-  }
+    hint_bg = "#147828",
+  },
 }
-
 
 M.ale = {
   fixers = {
@@ -124,7 +123,7 @@ M.goto_preview = {
 M.nvim_cmp = {
   sources = {
     { name = "nvim_lsp", group_index = 2 },
-    { name = 'omnisharp', group_index = 2 },
+    { name = "omnisharp", group_index = 2 },
     { name = "crates", group_index = 2 },
     { name = "luasnip", group_index = 2 },
     { name = "buffer", group_index = 2 },
@@ -140,126 +139,124 @@ M.numb = {
 }
 
 M.window_picker = {
-    -- type of hints you want to get
-    -- following types are supported
-    -- 'statusline-winbar' | 'floating-big-letter'
-    -- 'statusline-winbar' draw on 'statusline' if possible, if not 'winbar' will be
-    -- 'floating-big-letter' draw big letter on a floating window
-    -- used
-    hint = 'floating-big-letter',
+  -- type of hints you want to get
+  -- following types are supported
+  -- 'statusline-winbar' | 'floating-big-letter'
+  -- 'statusline-winbar' draw on 'statusline' if possible, if not 'winbar' will be
+  -- 'floating-big-letter' draw big letter on a floating window
+  -- used
+  hint = "floating-big-letter",
 
-    -- when you go to window selection mode, status bar will show one of
-    -- following letters on them so you can use that letter to select the window
-    selection_chars = 'TNASERIOW',
+  -- when you go to window selection mode, status bar will show one of
+  -- following letters on them so you can use that letter to select the window
+  selection_chars = "TNASERIOW",
 
-    -- This section contains picker specific configurations
-    picker_config = {
-        statusline_winbar_picker = {
-            -- You can change the display string in status bar.
-            -- It supports '%' printf style. Such as `return char .. ': %f'` to display
-            -- buffer file path. See :h 'stl' for details.
-            selection_display = function(char, windowid)
-                return '%=' .. char .. '%='
-            end,
+  -- This section contains picker specific configurations
+  picker_config = {
+    statusline_winbar_picker = {
+      -- You can change the display string in status bar.
+      -- It supports '%' printf style. Such as `return char .. ': %f'` to display
+      -- buffer file path. See :h 'stl' for details.
+      selection_display = function(char, windowid)
+        return "%=" .. char .. "%="
+      end,
 
-            -- whether you want to use winbar instead of the statusline
-            -- "always" means to always use winbar,
-            -- "never" means to never use winbar
-            -- "smart" means to use winbar if cmdheight=0 and statusline if cmdheight > 0
-            use_winbar = 'smart', -- "always" | "never" | "smart"
-        },
-
-        floating_big_letter = {
-            -- window picker plugin provides bunch of big letter fonts
-            -- fonts will be lazy loaded as they are being requested
-            -- additionally, user can pass in a table of fonts in to font
-            -- property to use instead
-
-            font = 'ansi-shadow', -- ansi-shadow |
-        },
+      -- whether you want to use winbar instead of the statusline
+      -- "always" means to always use winbar,
+      -- "never" means to never use winbar
+      -- "smart" means to use winbar if cmdheight=0 and statusline if cmdheight > 0
+      use_winbar = "smart", -- "always" | "never" | "smart"
     },
 
-    -- whether to show 'Pick window:' prompt
-    show_prompt = false,
+    floating_big_letter = {
+      -- window picker plugin provides bunch of big letter fonts
+      -- fonts will be lazy loaded as they are being requested
+      -- additionally, user can pass in a table of fonts in to font
+      -- property to use instead
 
-    -- prompt message to show to get the user input
-    prompt_message = 'Pick window: ',
+      font = "ansi-shadow", -- ansi-shadow |
+    },
+  },
 
-    -- if you want to manually filter out the windows, pass in a function that
-    -- takes two parameters. You should return window ids that should be
-    -- included in the selection
-    -- EX:-
-    -- function(window_ids, filters)
-    --    -- folder the window_ids
-    --    -- return only the ones you want to include
-    --    return {1000, 1001}
-    -- end
-    filter_func = nil,
+  -- whether to show 'Pick window:' prompt
+  show_prompt = false,
 
-    -- following filters are only applied when you are using the default filter
-    -- defined by this plugin. If you pass in a function to "filter_func"
-    -- property, you are on your own
-    filter_rules = {
-        -- when there is only one window available to pick from, use that window
-        -- without prompting the user to select
-        autoselect_one = true,
+  -- prompt message to show to get the user input
+  prompt_message = "Pick window: ",
 
-        -- whether you want to include the window you are currently on to window
-        -- selection or not
-        include_current_win = false,
+  -- if you want to manually filter out the windows, pass in a function that
+  -- takes two parameters. You should return window ids that should be
+  -- included in the selection
+  -- EX:-
+  -- function(window_ids, filters)
+  --    -- folder the window_ids
+  --    -- return only the ones you want to include
+  --    return {1000, 1001}
+  -- end
+  filter_func = nil,
 
-        -- filter using buffer options
-        bo = {
-            -- if the file type is one of following, the window will be ignored
-            -- filetype = { 'NvimTree', 'neo-tree', 'notify' },
-            filetype = {'notify'},
-            -- if the file type is one of following, the window will be ignored
-            buftype = { 'terminal' },
-        },
+  -- following filters are only applied when you are using the default filter
+  -- defined by this plugin. If you pass in a function to "filter_func"
+  -- property, you are on your own
+  filter_rules = {
+    -- when there is only one window available to pick from, use that window
+    -- without prompting the user to select
+    autoselect_one = true,
 
-        -- filter using window options
-        wo = {},
+    -- whether you want to include the window you are currently on to window
+    -- selection or not
+    include_current_win = false,
 
-        -- if the file path contains one of following names, the window
-        -- will be ignored
-        file_path_contains = {},
-
-        -- if the file name contains one of following names, the window will be
-        -- ignored
-        file_name_contains = {},
+    -- filter using buffer options
+    bo = {
+      -- if the file type is one of following, the window will be ignored
+      -- filetype = { 'NvimTree', 'neo-tree', 'notify' },
+      filetype = { "notify" },
+      -- if the file type is one of following, the window will be ignored
+      buftype = { "terminal" },
     },
 
-    -- You can pass in the highlight name or a table of content to set as
-    -- highlight
-    highlights = {
-        statusline = {
-            focused = {
-                fg = '#ededed',
-                bg = '#e35e4f',
-                bold = true,
-            },
-            unfocused = {
-                fg = '#ededed',
-                bg = '#44cc41',
-                bold = true,
-            },
-        },
-        winbar = {
-            focused = {
-                fg = '#ededed',
-                bg = '#e35e4f',
-                bold = true,
-            },
-            unfocused = {
-                fg = '#ededed',
-                bg = '#44cc41',
-                bold = true,
-            },
-        },
+    -- filter using window options
+    wo = {},
+
+    -- if the file path contains one of following names, the window
+    -- will be ignored
+    file_path_contains = {},
+
+    -- if the file name contains one of following names, the window will be
+    -- ignored
+    file_name_contains = {},
+  },
+
+  -- You can pass in the highlight name or a table of content to set as
+  -- highlight
+  highlights = {
+    statusline = {
+      focused = {
+        fg = "#ededed",
+        bg = "#e35e4f",
+        bold = true,
+      },
+      unfocused = {
+        fg = "#ededed",
+        bg = "#44cc41",
+        bold = true,
+      },
     },
+    winbar = {
+      focused = {
+        fg = "#ededed",
+        bg = "#e35e4f",
+        bold = true,
+      },
+      unfocused = {
+        fg = "#ededed",
+        bg = "#44cc41",
+        bold = true,
+      },
+    },
+  },
 }
-
-
 
 M.copilot = {
   -- Possible configurable fields can be found on:
@@ -389,6 +386,25 @@ M.nvimtree = {
       },
     },
   },
+}
+
+M.presence = {
+  auto_update = true,
+  neovim_image_text = "Im still looking for the exit button for VIM?",
+  main_image = "neovim",
+  log_level = nil,
+  debounce_timeout = 100,
+  enable_line_number = false,
+  buttons = true,
+  show_time = true,
+  -- Rich Presence text options
+  editing_text = "Editing %s",
+  file_explorer_text = "Browsing %s",
+  git_commit_text = "Committing changes",
+  plugin_manager_text = "Managing plugins",
+  reading_text = "Reading %s",
+  workspace_text = "Working on %s",
+  line_number_text = "Line %s out of %s",
 }
 
 return M
