@@ -26,6 +26,7 @@ local plugins = {
 
   {
     "phaazon/hop.nvim", -- Fast text navigation with motions
+    lazy = false, 
     opts = overrides.hop,
   },
 
@@ -106,6 +107,7 @@ local plugins = {
   {
     "rmagatti/goto-preview", -- Previewing references and definitions
     opts = overrides.goto_preview,
+    lazy = false,
     config = function()
       require("goto-preview").setup {}
     end,
