@@ -38,3 +38,14 @@ autocmd("BufEnter", {
     vim.cmd("lcd " .. path)
   end,
 })
+
+-- Autocmd to create Git aliases
+autocmd("BufEnter", {
+  pattern = "*", -- Match any buffer with "git/" in the path
+  callback = function()
+    -- Define Git aliases using command
+    vim.cmd("command! -buffer -nargs=* GA Git add <args>")
+    vim.cmd("command! -buffer -nargs=* GC Git commit -m <args>")
+    vim.cmd("command! -buffer -nargs=* GP Git push")
+  end,
+})
