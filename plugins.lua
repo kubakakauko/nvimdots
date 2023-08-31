@@ -17,17 +17,57 @@ local plugins = {
       require "custom.configs.lspconfig"
     end,
   },
+  {
+    "kevinhwang91/nvim-bqf",
+    event = { "BufRead", "BufNew" },
+    config = function()
+      require("bqf").setup {
+        auto_enable = true,
+        preview = {
+          win_height = 12,
+          win_vheight = 12,
+          delay_syntax = 80,
+          border_chars = { "┃", "┃", "━", "━", "┏", "┓", "┗", "┛", "█" },
+        },
+        func_map = {
+          vsplit = "",
+          ptogglemode = "z,",
+          stoggleup = "",
+        },
+        filter = {
+          fzf = {
+            action_for = { ["ctrl-s"] = "split" },
+            extra_opts = { "--bind", "ctrl-o:toggle-all", "--prompt", "> " },
+          },
+        },
+      }
+    end,
+  },
 
+  -- {
+  --   "phaazon/hop.nvim",
+  --   event = "BufRead",
+  --   config = function()
+  --     require("hop").setup()
+  --
+  --     -- Define key mappings
+  --     vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true })
+  --     vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+  --   end,
+  -- },
+
+  {
+    "ggandor/leap.nvim",
+    name = "leap",
+    event = "BufRead",
+    config = function()
+      require("leap").add_default_mappings()
+    end,
+  },
   -- Miscellaneous Code Navigation
   {
     "nacro90/numb.nvim", -- Shows line numbers with shortcuts
     opts = overrides.numb,
-  },
-
-  {
-    "phaazon/hop.nvim", -- Fast text navigation with motions
-    lazy = false, 
-    opts = overrides.hop,
   },
 
   {
@@ -69,7 +109,7 @@ local plugins = {
       require("spectre").setup()
     end,
   },
- 
+
   {
     "andymass/vim-matchup", -- Improved matching for %, [], {}, (), etc.
     event = "CursorMoved",
@@ -337,7 +377,6 @@ local plugins = {
   },
 
   -- Syntax Highlighting
-  { "aklt/plantuml-syntax", event = "LspAttach", ft = { "axaml", "axaml.cs" } },
   { "sheerun/vim-polyglot", event = "LspAttach" }, -- Automatic language support
   { "nickspoons/vim-sharpenup", ft = { "cs", "axaml.cs", "axaml" } }, -- C# syntax highlighting
 

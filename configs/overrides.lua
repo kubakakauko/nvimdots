@@ -392,7 +392,7 @@ M.nvimtree = {
 M.presence = {
   auto_update = true,
   neovim_image_text = "Im still looking for the exit button for VIM?",
-  main_image = "file",
+  main_image = "code",
   log_level = nil,
   debounce_timeout = 100,
   enable_line_number = false,
@@ -424,14 +424,6 @@ M.fugative = {
     "Glgrep",
     "Gedit",
   },
-}
-M.hop = {
-  event = "bufread",
-  config = function()
-    require("hop").setup()
-  end,
-  vim.api.nvim_set_keymap("n", "s", ":HopChar2<cr>", { silent = true }),
-  vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true }),
 }
 
 M.nvim_lspconfig = {
