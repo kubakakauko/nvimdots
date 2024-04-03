@@ -122,12 +122,12 @@ M.goto_preview = {
 
 M.nvim_cmp = {
   sources = {
+    { name = "copilot", group_index = 2 },
     { name = "nvim_lsp", group_index = 2 },
     { name = "omnisharp", group_index = 2 },
     { name = "crates", group_index = 2 },
     { name = "luasnip", group_index = 2 },
     { name = "buffer", group_index = 2 },
-    { name = "copilot", group_index = 2 },
     { name = "nvim_lua", group_index = 2 },
     { name = "path", group_index = 2 },
   },
@@ -260,14 +260,6 @@ M.window_picker = {
 }
 
 M.copilot = {
-  -- Possible configurable fields can be found on:
-  -- https://github.com/zbirenbaum/copilot.lua#setup-and-configuration
-  suggestion = {
-    enable = true,
-  },
-  panel = {
-    enable = true,
-  },
 }
 
 M.treesitter = {
@@ -376,7 +368,7 @@ M.nvimtree = {
   respect_buf_cwd = true,
   update_focused_file = {
     enable = true,
-    update_root = true,
+    update_root =false,
   },
 
   renderer = {
@@ -447,7 +439,7 @@ M.better_escape = {
     require("better_escape").setup {
 
       -- change the default mapping <Esc>
-      mapping = { "jk", "jj" },
+      -- mapping = { "jk", "jj" },
       timeout = vim.o.timeoutlen,
       clear_empty_lines = true,
       keys = "<Esc>",

@@ -14,10 +14,10 @@ autocmd("VimResized", {
 })
 
 -- Set line numbers on BufRead and BufNewFile
-autocmd("BufRead,BufNewFile", {
-  pattern = "*",
-  command = "set number relativenumber",
-})
+--autocmd("BufRead,BufNewFile", {
+--  pattern = "*",
+--  command = "set number relativenumber",
+--})
 
 autocmd("User", {
   pattern = "GitConflictDetected",
@@ -30,14 +30,6 @@ autocmd("User", {
   end,
 })
 
--- Autocmd to change working directory to the current file's location
-autocmd("BufEnter", {
-  pattern = "*",
-  callback = function()
-    local path = vim.fn.expand "%:p:h"
-    vim.cmd("lcd " .. path)
-  end,
-})
 
 -- Autocmd to create Git aliases
 autocmd("BufEnter", {
@@ -47,5 +39,48 @@ autocmd("BufEnter", {
     vim.cmd("command! -buffer -nargs=* GA Git add <args>")
     vim.cmd("command! -buffer -nargs=* GC Git commit -m <args>")
     vim.cmd("command! -buffer -nargs=* GP Git push")
+  end,
+})
+
+
+
+
+-- Function to get the root directory of the Git project
+local function get_git_root()
+  local git_root_cmd = "git rev-parse --show-toplevel 2>/dev/null"
+  local handle = io.popen(git_root_cmd)
+  local result = handle:read("*a")
+  handle:close()
+  return vim.fn.trim(result)
+end
+
+-- Function to change to the Git project root
+function ChangeToGitRoot()
+  local git_root = get_git_root()
+  if git_root ~= "" then
+    vim.fn.execute("lcd " .. git_root)
+  else
+    print("Not in a Git project.")
+  end
+end
+
+-- Custom command to change the working directory to the Git project root
+vim.cmd([[command! -nargs=0 GitRoot lua ChangeToGitRoot()]])
+-- Autocmd to change the working directory to the current file's directory
+autocmd("BufEnter", {
+  pattern = "*",
+  callback = function()
+    local file_path = vim.fn.expand("%:p:h")
+    vim.fn.execute("lcd " .. file_path)
+  end,
+})
+
+
+-- Autocmd to change the working directory to the current file's directory
+autocmd("BufEnter", {
+  pattern = "*",
+  callback = function()
+    local file_path = vim.fn.expand("%:p:h")
+    vim.fn.execute("lcd " .. file_path)
   end,
 })

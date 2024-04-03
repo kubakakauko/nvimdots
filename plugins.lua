@@ -17,6 +17,34 @@ local plugins = {
       require "custom.configs.lspconfig"
     end,
   },
+
+  {
+    "mfussenegger/nvim-jdtls",
+    ft = { "java" },
+    config = function()
+      require "custom.configs.java"
+    end,
+  },
+
+  {
+    "weirongxu/plantuml-previewer.vim",
+    ft = {"plantuml", "uml"},
+    lazy = false,
+    dependencies = {
+      {
+        "aklt/plantuml-syntax",
+        fp = {"plantuml", "uml"},
+        lazy = false,
+      },
+      {
+        "tyru/open-browser.vim",
+        fp = {"plantuml", "uml"},
+        lazy = false,
+      }
+    }
+  },
+
+
   {
     "kevinhwang91/nvim-bqf",
     event = { "BufRead", "BufNew" },
@@ -74,17 +102,29 @@ local plugins = {
     "williamboman/mason.nvim", -- Snippets expansion and completion
     opts = overrides.mason,
   },
-
+  {
+    "stevearc/oil.nvim",
+    config = function()
+      require("oil").setup {}
+    end,
+  },
+  "vim-test/vim-test",
   -- Syntax and Tree Sitter
   {
     "nvim-treesitter/nvim-treesitter", -- Syntax highlighting and better code analysis
     opts = overrides.treesitter,
   },
 
-  {
-    "nvim-tree/nvim-tree.lua", -- File explorer
-    opts = overrides.nvimtree,
-  },
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   branch = "v3.x",
+  --   lazy = false,
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+  --     "muniftanjim/nui.nvim",
+  --   },
+  -- },
 
   -- Text Editing and Enhancements
   {
@@ -237,15 +277,69 @@ local plugins = {
   -- Completion and Snippets
   {
     "zbirenbaum/copilot.lua", -- Snippet expansion with UltiSnips integration
+    cmd = "Copilot",
     event = "InsertEnter",
-    opts = overrides.copilot,
+    config = function()
+      require("copilot").setup {
+        panel = {
+          enabled = true,
+          auto_refresh = true,
+          keymap = {
+            jump_prev = "[[",
+            jump_next = "]]",
+            accept = "<CR>",
+            refresh = "gr",
+            open = "<M-CR>",
+          },
+          layout = {
+            position = "bottom", -- | top | left | right
+            ratio = 0.4,
+          },
+        },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          debounce = 75,
+          keymap = {
+            accept = "<M-l>",
+            accept_word = false,
+            accept_line = false,
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
+          },
+        },
+        filetypes = {
+          yaml = false,
+          markdown = false,
+          help = false,
+          gitcommit = false,
+          gitrebase = false,
+          hgcommit = false,
+          svn = false,
+          cvs = false,
+          ["."] = false,
+        },
+        copilot_node_command = "node", -- Node.js version must be > 16.x
+        server_opts_overrides = {
+          trace = "verbose",
+          settings = {
+            advanced = {
+              listCount = 10, -- #completions for panel
+              inlineSuggestCount = 5, -- #completions for getCompletions
+            },
+          },
+        },
+      }
+    end,
   },
 
   {
     "hrsh7th/nvim-cmp", -- LSP completion
     dependencies = {
       {
-        "zbirenbaum/copilot-cmp", -- Copilot integration with nvim-cmp
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
         config = function()
           require("copilot_cmp").setup()
         end,
@@ -273,8 +367,53 @@ local plugins = {
     init = function()
       require("core.utils").load_mappings "dap"
     end,
-  },
 
+    config = function()
+      require "custom.configs.nvim-dap"
+    end,
+  },
+  {
+    "preservim/vim-pencil",
+    dependencies = {
+      "preservim/vim-litecorrect",
+      "kana/vim-textobj-user",
+      "preservim/vim-textobj-quote",
+      "preservim/vim-textobj-sentence",
+    },
+    config = function()
+      local augroup = vim.api.nvim_create_augroup
+      local autocmd = vim.api.nvim_create_autocmd
+      augroup("pencil", { clear = true })
+      autocmd("FileType", {
+        group = "pencil",
+        pattern = { "markdown", "text" },
+        callback = function()
+          vim.cmd "call pencil#init({'wrap': 'hard'})"
+          vim.cmd "call litecorrect#init()"
+          vim.cmd "call textobj#quote#init()"
+          vim.cmd "call textobj#sentence#init()"
+        end,
+      })
+    end,
+  },
+  {
+    "stevearc/oil.nvim",
+    config = function()
+      require("oil").setup {}
+    end,
+  },
+  {
+    "gelguy/wilder.nvim",
+    config = function()
+      require "config/wilder"
+    end,
+  },
+  {
+    "goolord/alpha-nvim",
+    config = function()
+      require("alpha").setup(require("alpha.themes.startify").config)
+    end,
+  },
   {
     "saecki/crates.nvim", -- Cargo commands and crate search
     ft = { "toml" },
@@ -303,7 +442,7 @@ local plugins = {
     "theHamsta/nvim-dap-virtual-text", -- Virtual text for DAP messages
     lazy = false,
     config = function()
-      require("nvim-dap-virtual-text").setup()
+      require("nvim-dap-virtual-text").setup {}
     end,
   },
 

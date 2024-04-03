@@ -106,6 +106,126 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
+
+lspconfig.jdtls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "jdtls" },
+  filetypes = { "java" },
+  root_dir = function(fname)
+    return require("jdtls.setup").find_root({ fname = fname })
+  end,
+  settings = {
+    java = {
+      signatureHelp = { enabled = true },
+      contentProvider = { preferred = "fernflower" },
+      completion = {
+        favoriteStaticMembers = {
+          "org.hamcrest.MatcherAssert.assertThat",
+          "org.hamcrest.Matchers.*",
+          "org.hamcrest.CoreMatchers.*",
+          "org.junit.jupiter.api.Assertions.*",
+          "java.util.Objects.requireNonNull",
+          "java.util.Objects.requireNonNullElse",
+          "org.mockito.Mockito.*",
+        },
+      },
+      sources = {
+        organizeImports = {
+          starThreshold = 9999,
+          staticStarThreshold = 9999,
+        },
+      },
+      codeGeneration = {
+        toString = {
+          template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}"
+        }
+      },
+      configuration = {
+        runtimes = {
+          {
+            name = "JavaSE-20",
+            path = "/Library/Java/JavaVirtualMachines/jdk-20.jdk/Contents/Home",
+          },
+        },
+      },
+    },
+  },
+}
 --
 -- lspconfig.pyright.setup { blabla}
 --
+--#region
+
+lspconfig['dartls'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
+lspconfig['lua_ls'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+    },
+  }
+}
+
+lspconfig['ltex'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "bib", "markdown", "org", "plaintex", "rst", "rnoweb", "tex", "pandoc" },
+  settings = {
+    ltex = {
+      language = "en-CA",
+    }
+  }
+}
+
+lspconfig['gopls'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+    },
+  }
+}
+
+lspconfig['pyright'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    pyright = {
+      analysis = {
+        useLibraryCodeForTypes = true,
+      },
+    },
+  }
+}
+
+lspconfig['solargraph'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
+lspconfig['tsserver'].setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
